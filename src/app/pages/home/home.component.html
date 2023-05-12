@@ -1,0 +1,6 @@
+<h1 *ngIf="authService.isLogged | async; else anonymous">Welcome, {{authService.username}}</h1>
+<h3 *ngIf="authService.isLogged | async">Roles: {{authService.roles}}</h3>
+
+<ng-template #anonymous>
+    <h1>Hola usuario anónimo</h1>
+</ng-template>
