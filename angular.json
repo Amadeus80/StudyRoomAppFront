@@ -26,9 +26,15 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/deeppurple-amber.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/bootstrap.css",
+              "src/assets/css/simpleLightbox.min.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/js/scripts.js",
+              "src/assets/js/bootstrap.bundle.min.js",
+              "src/assets/js/simpleLightbox.min.js"
+            ]
           },
           "configurations": {
             "production": {

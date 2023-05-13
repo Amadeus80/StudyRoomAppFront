@@ -6,3 +6,33 @@ a{
     text-decoration: none;
     color: #ffff;
 }
+
+a:hover{
+    cursor: pointer;
+}
+
+.logo{
+    width: 70px;
+    height: 70px;
+}
+
+.nav__enlaces > li{
+    transition: all 0.2s;
+    text-align: center;
+    width: 20%;
+    margin: auto;
+    margin-top: 1rem;
+}
+
+.nav__enlaces > li:hover{
+    /* border-bottom: 1px solid black; */
+    filter: drop-shadow(0px 0px 10px black);
+    transform: scale(1.2);
+}
+
+@media screen and (min-width:992px){
+    .nav__enlaces > li{
+        width: 100%;
+        margin-top: 0;
+    }
+}

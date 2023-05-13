@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/pages/auth/auth.service';
 
@@ -8,13 +9,14 @@ import { AuthService } from 'src/app/pages/auth/auth.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  isAdmin: boolean = false;
+  isAdmin: boolean = true;
   private subscription: Subscription = new Subscription();
   isLogged = false;
+  ruta!:string;
 
   @Output() toggleSidenav = new EventEmitter<void>();
 
-  constructor(private authService: AuthService) {}
+  constructor(public authService: AuthService, private router:Router) {}
 
   ngOnInit(): void {
     this.subscription.add(
@@ -32,5 +34,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   onLogout() {
     this.authService.logout();
+  }
+
+  obtenerRuta():string{
+    return this.router.url;
   }
 }
