@@ -8,7 +8,8 @@ import { FooterComponent } from './shared/components/footer/footer.component';
 import { MaterialModule } from './material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpService } from './shared/interceptors/http.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,11 @@ import { HttpClientModule } from '@angular/common/http';
     SidebarModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [{
+    provide : HTTP_INTERCEPTORS,
+    useClass : HttpService,
+    multi:true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

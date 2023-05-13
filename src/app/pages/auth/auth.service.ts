@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment";
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {BehaviorSubject, Observable, catchError, map, throwError} from "rxjs";
 import { Authority, User, UserResponse } from 'src/app/shared/models/user.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -31,6 +31,18 @@ export class AuthService {
       }
   }
 
+  lista(){
+    const tokenLocalStorage:string = this.token!;
+    const opciones = { 
+      headers : new HttpHeaders({
+        'Content-Type': "application/json",
+        'Authorization' : `Bearer ${tokenLocalStorage}`
+      })
+    }
+    console.log(tokenLocalStorage);
+    return this.http.get(`${environment.API_URL}/api/user/lista`);
+  }
+
   get isLogged():Observable<boolean>{
     return this.loggedIn.asObservable();
   }
@@ -41,6 +53,10 @@ export class AuthService {
 
   get username(){
     return localStorage.getItem("username");
+  }
+
+  get token(){
+    return localStorage.getItem("token");
   }
 
   login(authData:User):Observable<UserResponse | void>{
