@@ -11,14 +11,13 @@ export class HttpService implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = localStorage.getItem('token')
-    req.headers.append("Authorization", `Bearer ${token}`)
-    const apiReq = req.clone({
-      setHeaders : {
-        'Content-Type': "application/json",
-        authorization: `Bearer ${ token }`
+    req = req.clone({
+      setHeaders: {
+        "Authorization" : "Bearer "+token,
+        "X-Requested-With": "XMLHttpRequest"
       }
-    });
-    console.log(apiReq)
-    return next.handle(apiReq);
+    })
+    console.log(req)
+    return next.handle(req);
   }
 }

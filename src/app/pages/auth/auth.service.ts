@@ -32,15 +32,18 @@ export class AuthService {
   }
 
   lista(){
-    const tokenLocalStorage:string = this.token!;
+    /* const tokenLocalStorage:string = this.token!;
     const opciones = { 
       headers : new HttpHeaders({
         'Content-Type': "application/json",
         'Authorization' : `Bearer ${tokenLocalStorage}`
       })
     }
-    console.log(tokenLocalStorage);
-    return this.http.get(`${environment.API_URL}/api/user/lista`);
+    console.log(tokenLocalStorage); */
+    return this.http.get(`${environment.API_URL}/api/user/lista`)
+    .pipe(
+      map(resp => resp)
+    );
   }
 
   get isLogged():Observable<boolean>{
