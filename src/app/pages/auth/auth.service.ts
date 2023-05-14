@@ -14,8 +14,14 @@ const helper = new JwtHelperService();
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
+  private expired = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient, private router:Router) { 
+    console.log(this.tokenIsExpired(this.token));
+      if(this.tokenIsExpired(this.token)){
+        this.logout();
+      }
+
       if(!allowUrl.find(url => url == this.router.url)){
         this.checkToken();
       }
@@ -32,14 +38,6 @@ export class AuthService {
   }
 
   lista(){
-    /* const tokenLocalStorage:string = this.token!;
-    const opciones = { 
-      headers : new HttpHeaders({
-        'Content-Type': "application/json",
-        'Authorization' : `Bearer ${tokenLocalStorage}`
-      })
-    }
-    console.log(tokenLocalStorage); */
     return this.http.get(`${environment.API_URL}/api/user/lista`)
     .pipe(
       map(resp => resp)
@@ -48,6 +46,16 @@ export class AuthService {
 
   get isLogged():Observable<boolean>{
     return this.loggedIn.asObservable();
+  }
+
+  get isExpired():Observable<boolean>{
+    if(this.tokenIsExpired(this.token)){
+      this.expired.next(true);
+    }
+    else{
+      this.expired.next(false);
+    }
+    return this.expired.asObservable();
   }
 
   get roles(){
@@ -88,8 +96,12 @@ export class AuthService {
 
   checkToken():void{
     const userToken = localStorage.getItem("token");
-    const isExpired = helper.isTokenExpired(userToken);
+    const isExpired = this.tokenIsExpired(userToken!);
     isExpired ? this.logout() : this.loggedIn.next(true);
+  }
+
+  tokenIsExpired(token:string | null):boolean{
+    return (token) ? helper.isTokenExpired(token) : true;
   }
 
   private saveToken(token:string):void{

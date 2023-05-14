@@ -1,5 +1,5 @@
 <div class="login-form">
-    <div *ngIf="errorLogin" class="alert alert-danger">Credenciales incorrectas</div>
+    <div *ngIf="errorLogin" class="alert alert-danger">{{errorMessage | error }}</div>
     <mat-card>
         <mat-card-content>
             <h1>Login</h1>

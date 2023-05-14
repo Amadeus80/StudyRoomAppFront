@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   errorLogin: boolean = false;
+  errorMessage!:string;
   private subscription: Subscription = new Subscription();
 
   loginForm = this.fb.group({
@@ -46,7 +47,10 @@ export class LoginComponent implements OnInit, OnDestroy {
             this.router.navigate(['']);
           }
         },
-        error: (e) => (this.errorLogin = true),
+        error: (e) => {
+          this.errorLogin = true;
+          this.errorMessage = e;
+        },
       })
     );
   }

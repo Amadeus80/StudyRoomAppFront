@@ -17,7 +17,6 @@ export class HttpService implements HttpInterceptor {
         "X-Requested-With": "XMLHttpRequest"
       }
     })
-    console.log(req)
     return next.handle(req);
   }
 }

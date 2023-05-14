@@ -15,7 +15,7 @@ import { HttpService } from './shared/interceptors/http.service';
   declarations: [
     AppComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

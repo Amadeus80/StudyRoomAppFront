@@ -19,7 +19,7 @@ a:hover{
 .nav__enlaces > li{
     transition: all 0.2s;
     text-align: center;
-    width: 20%;
+    width: 50%;
     margin: auto;
     margin-top: 1rem;
 }
