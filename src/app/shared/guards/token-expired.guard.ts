@@ -12,7 +12,12 @@ export class TokenExpiredGuard {
   canActivate(): Observable<boolean> {
     return this.authService.isExpired.pipe(
       take(1),
-      map((expired:boolean) => !expired)
+      map((expired:boolean) => {
+        if(expired){
+          this.authService.logout()
+        }
+        return !expired
+      })
     )
   }
   

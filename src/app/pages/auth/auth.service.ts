@@ -5,6 +5,7 @@ import {BehaviorSubject, Observable, catchError, map, throwError} from "rxjs";
 import { Authority, User, UserResponse } from 'src/app/shared/models/user.interface';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
+import { UserCreate } from 'src/app/shared/models/user.interface';
 
 const allowUrl:String[] = ["/"];
 
@@ -17,10 +18,10 @@ export class AuthService {
   private expired = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient, private router:Router) { 
-    console.log(this.tokenIsExpired(this.token));
+    /* console.log(this.tokenIsExpired(this.token));
       if(this.tokenIsExpired(this.token)){
         this.logout();
-      }
+      } */
 
       if(!allowUrl.find(url => url == this.router.url)){
         this.checkToken();
@@ -81,6 +82,17 @@ export class AuthService {
         this.saveUser(resp.user.username);
         this.loggedIn.next(true);
         return resp;
+      }),
+      catchError((err) => this.handlerError(err))
+    )
+  }
+
+  register(registerData:UserCreate):Observable<UserCreate | void>{
+    return this.http
+    .post<UserCreate>(`${environment.API_URL}/api/user/add`, registerData)
+    .pipe(
+      map((resp:UserCreate) => {
+        console.log(resp)
       }),
       catchError((err) => this.handlerError(err))
     )

@@ -26,7 +26,7 @@
             <ul class="navbar-nav ms-auto my-2 my-lg-0 nav__enlaces">
                 <li class="nav-item mt-1" *ngIf="isLogged && isAdmin"><a class="nav-link" [routerLink]="'/admin'">Admin</a></li>
                 <li class="nav-item"><a *ngIf="!isLogged; else viewLogout" class="btn btn-primary px-3 py-1 w-100" [routerLink]="'/login'">Login</a></li>
-                <li class="nav-item"><a *ngIf="!isLogged" class="btn btn-primary px-3 py-1 w-100 ms-0 ms-lg-2" [routerLink]="'/login'">Registrarse</a></li>
+                <li class="nav-item"><a *ngIf="!isLogged" class="btn btn-primary px-3 py-1 w-100 ms-0 ms-lg-2" [routerLink]="'/register'">Registrarse</a></li>
             </ul>
         </div>
     </div>

@@ -1,0 +1,18 @@
+.register-form{
+    padding: 4rem 1rem;
+    min-height: calc(100vh - 144px - 4rem);
+}
+
+mat-card{
+    max-width: 300px;
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.full-width-input, button{
+    width: 100%;
+}
+
+.separator{
+    margin-bottom: 2rem;
+}
