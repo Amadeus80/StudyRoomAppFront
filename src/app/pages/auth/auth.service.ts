@@ -15,6 +15,7 @@ const helper = new JwtHelperService();
 })
 export class AuthService {
   private loggedIn = new BehaviorSubject<boolean>(false);
+  private admin = new BehaviorSubject<boolean>(false);
   private expired = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient, private router:Router) { 
@@ -22,6 +23,8 @@ export class AuthService {
       if(this.tokenIsExpired(this.token)){
         this.logout();
       } */
+
+      this.comprobarAdmin() ? this.admin.next(true) : this.admin.next(false);
 
       if(!allowUrl.find(url => url == this.router.url)){
         this.checkToken();
@@ -45,8 +48,27 @@ export class AuthService {
     );
   }
 
+  
+
   get isLogged():Observable<boolean>{
     return this.loggedIn.asObservable();
+  }
+
+  comprobarAdmin():boolean{
+    let admin = false;
+    if(this.rolesLocalStorage){
+      const roles:string[] = JSON.parse(this.rolesLocalStorage);
+      roles.forEach(rol => {
+        if(rol == "ROLE_ADMIN"){
+          admin = true;
+        }
+      })
+    }
+    return admin;
+  }
+
+  get isAdmin():Observable<boolean>{
+    return this.admin.asObservable();
   }
 
   get isExpired():Observable<boolean>{
@@ -59,7 +81,7 @@ export class AuthService {
     return this.expired.asObservable();
   }
 
-  get roles(){
+  get rolesLocalStorage(){
     return localStorage.getItem("authorities");
   }
 
@@ -125,8 +147,10 @@ export class AuthService {
   }
 
   private saveAuthorities(authorities:Authority[]):void{
-    const authoritiesJSON:string = JSON.stringify(authorities.map(rol => rol.authority));
+    const authoritiesUser = authorities.map(rol => rol.authority);
+    const authoritiesJSON:string = JSON.stringify(authoritiesUser);
     localStorage.setItem("authorities", authoritiesJSON);
+    this.comprobarAdmin() ? this.admin.next(true) : this.admin.next(false);
   }
 
   private handlerError(error:any):Observable<never>{
