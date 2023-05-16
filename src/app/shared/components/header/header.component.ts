@@ -22,6 +22,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.authService.isLogged.subscribe((resp) => (this.isLogged = resp))
     );
+
+    this.subscription.add(
+      this.authService.isAdmin.subscribe((resp) => (this.isAdmin = resp))
+    );
   }
 
   ngOnDestroy(): void {

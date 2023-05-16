@@ -5,14 +5,15 @@ import { AuthService } from 'src/app/pages/auth/auth.service';
 @Injectable({
   providedIn: 'root'
 })
-export class LoggedGuard {
-  constructor(private authService: AuthService){}
+export class CheckAdminGuard {
+
+  constructor(private authService:AuthService){}
+
   canActivate(): Observable<boolean> {
-    this.authService.checkToken();
-    return this.authService.isLogged.pipe(
+    return this.authService.isAdmin.pipe(
       take(1),
-      map((isLogged:boolean) => isLogged)
-    );
+      map(admin => admin)
+    )
   }
   
 }
