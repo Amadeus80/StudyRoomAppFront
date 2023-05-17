@@ -7,6 +7,7 @@ import {MatListModule} from "@angular/material/list";
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const myModules:any[] = [
     MatToolbarModule, 
@@ -16,7 +17,8 @@ const myModules:any[] = [
     MatListModule, 
     MatIconModule, 
     MatInputModule, 
-    MatCardModule
+    MatCardModule,
+    MatSnackBarModule
 ];
 
 @NgModule({

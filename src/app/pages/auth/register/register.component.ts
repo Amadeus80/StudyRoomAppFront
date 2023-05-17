@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth.service';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserCreate } from 'src/app/shared/models/user.interface';
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-register',
@@ -16,12 +17,12 @@ export class RegisterComponent implements OnInit, OnDestroy{
   private subscription: Subscription = new Subscription();
 
   registerForm = this.fb.group({
-    email: [''],
-    username:[''],
-    password: [''],
+    email: ['', [Validators.required, Validators.email]],
+    username:['', [Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
   });
 
-  constructor(private authService:AuthService, private fb:FormBuilder, private router:Router){}
+  constructor(private authService:AuthService, private fb:FormBuilder, private router:Router, private snackBar: MatSnackBar){}
   
   ngOnInit(): void {
     throw new Error('Method not implemented.');
@@ -32,22 +33,30 @@ export class RegisterComponent implements OnInit, OnDestroy{
   }
 
   onRegister():void{
-    const formValue = this.registerForm.value;
-    const registerData:UserCreate = {
-      email : formValue.email!,
-      username : formValue.username!,
-      password:formValue.password!
+    if (this.registerForm.valid) {
+      const formValue = this.registerForm.value;
+      const registerData:UserCreate = {
+        email : formValue.email!,
+        username : formValue.username!,
+        password:formValue.password!
+      }
+      this.subscription.add(
+        this.authService.register(registerData).subscribe({
+          next: (resp) => {
+            this.router.navigate(["/login"])
+          },
+          error : (e) => {
+            this.errorLogin = true;
+            this.errorMessage = e;
+          }
+        })
+      )
+    } else{
+      this.snackBar.open("Algún campo no es válido", "X", {
+        duration: 3000,
+        horizontalPosition: "center",
+        verticalPosition: "bottom",
+      });
     }
-    this.subscription.add(
-      this.authService.register(registerData).subscribe({
-        next: (resp) => {
-          this.router.navigate(["/login"])
-        },
-        error : (e) => {
-          this.errorLogin = true;
-          this.errorMessage = e;
-        }
-      })
-    )
   }
 }
