@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: 'notFound', loadChildren: () => import('./pages/not-found/not-found.module').then(m => m.NotFoundModule) },
   { path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule), canActivate:[CheckAdminGuard,LoggedGuard] },
   { path: 'login', loadChildren: () => import('./pages/auth/login/login.module').then(m => m.LoginModule), canActivate:[CheckLoginGuard]},
-  { path: 'register', loadChildren: () => import('./pages/auth/register/register.module').then(m => m.RegisterModule) }
+  { path: 'register', loadChildren: () => import('./pages/auth/register/register.module').then(m => m.RegisterModule) },
+  { path: 'contact', loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule)}
 ];
 
 @NgModule({
