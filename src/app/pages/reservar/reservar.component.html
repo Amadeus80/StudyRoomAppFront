@@ -1,1 +1,18 @@
-<p>reservar works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Asiento</th>
+      <th scope="col">Disponible</th>
+      <th scope="col">Fecha</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let asi of asientos">
+      <th>{{asi.asiento.id}}</th>
+      <td>{{asi.asiento.asiento}}</td>
+      <td>{{asi.disponible}}</td>
+      <td>{{asi.fecha}}</td>
+    </tr>
+  </tbody>
+</table>
