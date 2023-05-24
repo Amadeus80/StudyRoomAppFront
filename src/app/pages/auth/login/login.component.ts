@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    
+    this.validaciones();
   }
 
   ngOnDestroy(): void {
@@ -56,12 +56,31 @@ export class LoginComponent implements OnInit, OnDestroy {
           },
         })
       );
-    } else{
-      this.snackBar.open("Algún campo no es válido", "X", {
-        duration: 3000,
-        horizontalPosition: "center",
-        verticalPosition: "bottom",
-      });
     }
   }
+
+  validaciones(): void {
+    // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
+    (function () {
+      'use strict'
+
+      // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Bucle sobre ellos y evitar el envío
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event: any) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+
+  }
+
 }

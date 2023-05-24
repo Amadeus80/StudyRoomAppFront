@@ -12,7 +12,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit, OnDestroy{
-  errorLogin: boolean = false;
+  errorRegister: boolean = false;
   errorMessage!:string;
   private subscription: Subscription = new Subscription();
 
@@ -25,6 +25,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
   constructor(private authService:AuthService, private fb:FormBuilder, private router:Router, private snackBar: MatSnackBar){}
   
   ngOnInit(): void {
+    this.validaciones();
     throw new Error('Method not implemented.');
   }
 
@@ -46,17 +47,36 @@ export class RegisterComponent implements OnInit, OnDestroy{
             this.router.navigate(["/login"])
           },
           error : (e) => {
-            this.errorLogin = true;
+            this.errorRegister = true;
             this.errorMessage = e;
           }
         })
       )
-    } else{
-      this.snackBar.open("Algún campo no es válido", "X", {
-        duration: 3000,
-        horizontalPosition: "center",
-        verticalPosition: "bottom",
-      });
     }
   }
+
+  validaciones(): void {
+    // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
+    (function () {
+      'use strict'
+
+      // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Bucle sobre ellos y evitar el envío
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event: any) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+
+  }
+  
 }

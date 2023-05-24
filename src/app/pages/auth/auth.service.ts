@@ -158,7 +158,6 @@ export class AuthService {
     if(error){
       errorMessage = `Error: code ${error.message}`;
     }
-    window.alert(errorMessage);
     return throwError(() => errorMessage);
   }
 }

@@ -1,5 +1,5 @@
-<div class="register-form">
-    <div *ngIf="errorLogin" class="alert alert-danger">{{errorMessage}}</div>
+<!-- <div class="register-form">
+    <div *ngIf="errorRegister" class="alert alert-danger">{{errorMessage}}</div>
     
     <mat-card>
         <mat-card-content>
@@ -29,4 +29,58 @@
             </form>
         </mat-card-content>
     </mat-card>
+</div> -->
+
+
+
+<!-- Regitro -->
+<div class="register-form">
+
+    <div *ngIf="errorRegister" class="alert alert-danger">{{errorMessage}}</div>
+
+    <section id="register">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-xl-6 text-center">
+                    <h1 class="mt-0">REGISTRO!</h1>
+                    <hr class="divider" />
+                </div>
+            </div>
+
+            <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
+                <div class="col-lg-6">
+                    <form [formGroup]="registerForm" (ngSubmit)="onRegister()" id="registerForm" class="needs-validation" novalidate>
+
+                        <!-- Input Username -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" formControlName="username" id="username" type="text" placeholder=" " required />
+                            <label for="username">Username</label>
+                            <div class="invalid-feedback">Debes completar el username</div>
+                        </div>
+
+                        <!-- Input Email -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" formControlName="email" id="email" type="email" placeholder=" " required />
+                            <label for="email">Email</label>
+                            <div class="invalid-feedback">Debes completar el email</div>
+                        </div>
+
+                        <!-- Input Password -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" formControlName="password" id="password" type="password" placeholder=" " minlength="8" required />
+                            <label for="password">Password</label>
+                            <div class="invalid-feedback">Debes completar el password</div>
+                        </div>
+
+                        <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Registrarse</button></div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
 </div>
