@@ -1,5 +1,8 @@
 <div class="contact-form">
 
+    <div *ngIf="errorLogin" class="alert alert-danger">{{errorMessage}}</div>
+    <div *ngIf="successMessage" class="alert alert-success">{{successMessage}}</div>
+
     <!-- Contact-->
     <section id="contact">
         <div class="container">
@@ -16,32 +19,32 @@
 
             <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                 <div class="col-lg-6">
-                    <form id="contactForm" class="needs-validation" novalidate>
+                    <form [formGroup]="contactForm" (ngSubmit)="onContact()" id="contactForm" class="needs-validation" novalidate>
                         
                         <!-- Input Nombre -->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="name" type="text" placeholder=" " required />
+                            <input class="form-control" formControlName="nombreUsuario" id="name" type="text" placeholder=" " required />
                             <label for="name">Nombre completo</label>
                             <div class="invalid-feedback">Debes completar el nombre</div>
                         </div>
 
                         <!-- Input Email -->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="email" type="email" placeholder=" " required />
+                            <input class="form-control" formControlName="email" id="email" type="email" placeholder=" " required />
                             <label for="email">Email</label>
                             <div class="invalid-feedback">Debes completar el email</div>
                         </div>
 
                         <!-- Input Número de Teléfono -->
                         <div class="form-floating mb-3">
-                            <input class="form-control" id="phone" type="number" placeholder=" " minlength="9" required />
+                            <input class="form-control" formControlName="telefono" id="phone" type="tel" placeholder=" "  required />
                             <label for="phone">Número de teléfono</label>
                             <div class="invalid-feedback">Debes completar el número de teléfono</div>
                         </div>
 
                         <!-- Input Mensaje -->
                         <div class="form-floating mb-3">
-                            <textarea class="form-control" id="message" type="text" placeholder=" " style="height: 10rem" required></textarea>
+                            <textarea class="form-control" formControlName="mensaje" id="message" type="text" placeholder=" " style="height: 10rem" required></textarea>
                             <label for="message">Mensaje</label>
                             <div class="invalid-feedback">El mensaje es obligatorio</div>
                         </div>

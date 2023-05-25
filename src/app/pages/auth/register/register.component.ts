@@ -26,7 +26,6 @@ export class RegisterComponent implements OnInit, OnDestroy{
   
   ngOnInit(): void {
     this.validaciones();
-    throw new Error('Method not implemented.');
   }
 
   ngOnDestroy(): void {
@@ -48,6 +47,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
           },
           error : (e) => {
             this.errorRegister = true;
+            console.log(e);
             this.errorMessage = e;
           }
         })

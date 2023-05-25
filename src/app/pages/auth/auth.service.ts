@@ -156,7 +156,7 @@ export class AuthService {
   private handlerError(error:any):Observable<never>{
     let errorMessage = "Ha ocurrido un error";
     if(error){
-      errorMessage = `Error: code ${error.message}`;
+      errorMessage = error.error.message;
     }
     return throwError(() => errorMessage);
   }
