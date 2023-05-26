@@ -1,0 +1,84 @@
+<div class="container-usuarios container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Email</th>
+                <th scope="col">Username</th>
+                <th scope="col">Roles</th>
+                <th scope="col">Accion</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr *ngFor="let usuario of usuarios">
+                <th scope="row">{{usuario.id}}</th>
+                <td>{{usuario.email}}</td>
+                <td>{{usuario.username}}</td>
+                <td>
+                    <div class="d-flex gap-3">
+                        <span *ngFor="let rol of usuario.roles">
+                            {{rol.rol | removeRol}}
+                        </span>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-flex gap-2">
+                        <app-boton-delete [id]="usuario.id" (propagar)="borrar($event)"></app-boton-delete>
+                        <app-boton-edit [id]="usuario.id" (propagar)="editar($event)" data-bs-toggle="modal" data-bs-target="#modalEdit"></app-boton-edit>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElementos" (page)="nextPage($event)"> </mat-paginator>
+</div>
+
+<!-- Modal edit-->
+<div class="modal fade" id="modalEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div *ngIf="usuario" class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Editar usuario {{usuario.username}}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="editForm" (ngSubmit)="onEdit()" id="editForm" class="needs-validation" novalidate>
+            <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" formControlName="email" id="email" type="email" placeholder=" " required />
+                        <label for="email">Email</label>
+                        <div class="invalid-feedback">Debes completar el email</div>
+                    </div>
+
+                    
+                    <div class="form-floating mb-3">
+                        <input class="form-control" formControlName="username" id="username" type="text" placeholder=" " required />
+                        <label for="password">Username</label>
+                        <div class="invalid-feedback">Debes completar el password</div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" multiple aria-label="multiple select example" formControlName="roles">
+                            <option *ngFor="let rol of roles" [ngValue]="rol.id">{{rol.rol}}</option>
+                        </select>
+                    </div>
+                    {{editForm.value | json}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i>Guardar</button>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="!usuario" class="modal-content">
+            <div class="modal-header">
+                <div class="spinner-border text-danger modal-title text-center" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
