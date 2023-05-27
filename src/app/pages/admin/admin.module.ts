@@ -8,7 +8,8 @@ import { MaterialModule } from 'src/app/material.module';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 import { BotonDeleteComponent } from './boton-delete/boton-delete.component';
 import { BotonEditComponent } from './boton-edit/boton-edit.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AdminRoutingModule,
     MaterialModule,
     PipesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgMultiSelectDropDownModule,
+    FormsModule
   ]
 })
 export class AdminModule { }

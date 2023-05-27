@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.login(authData).subscribe({
           next: (resp) => {
             if (resp) {
+              localStorage.setItem("success", "Has iniciado sesión con éxito");
               this.router.navigate(['']);
             }
           },

@@ -10,6 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from './shared/components/sidebar/sidebar.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpService } from './shared/interceptors/http.service';
+import { ErrorService } from './shared/interceptors/error.service';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   declarations: [
@@ -23,11 +25,17 @@ import { HttpService } from './shared/interceptors/http.service';
     MaterialModule,
     BrowserAnimationsModule,
     SidebarModule,
-    HttpClientModule
+    HttpClientModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [{
     provide : HTTP_INTERCEPTORS,
     useClass : HttpService,
+    multi:true
+  },
+  {
+    provide : HTTP_INTERCEPTORS,
+    useClass : ErrorService,
     multi:true
   }],
   bootstrap: [AppComponent]

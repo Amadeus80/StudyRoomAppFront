@@ -15,6 +15,10 @@ export class UsuarioService {
     return this.http.get(`${URL}lista?page=${request['page']}&size=${request['size']}`, request);
   }
 
+  addUsuario(userData:any){
+    return this.http.post(`${URL}add-admin`, userData);
+  }
+
   borrarUsuario(id:any){
     return this.http.delete(`${URL}delete/${id}`);
   }

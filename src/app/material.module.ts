@@ -9,6 +9,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCardModule} from "@angular/material/card";
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSelectModule} from '@angular/material/select';
 
 const myModules:any[] = [
     MatToolbarModule, 
@@ -20,7 +21,8 @@ const myModules:any[] = [
     MatInputModule, 
     MatCardModule,
     MatSnackBarModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule
 ];
 
 @NgModule({

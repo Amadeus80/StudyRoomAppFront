@@ -1,4 +1,7 @@
 <div class="container-usuarios container">
+    <div>
+        <button class="float-end btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd" (click)="nuevo()"><i class="bi bi-plus-circle-fill text-dark fs-5 me-2"></i> Nuevo</button>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -52,20 +55,87 @@
                     
                     <div class="form-floating mb-3">
                         <input class="form-control" formControlName="username" id="username" type="text" placeholder=" " required />
-                        <label for="password">Username</label>
+                        <label for="username">Username</label>
                         <div class="invalid-feedback">Debes completar el password</div>
                     </div>
 
                     <div class="form-floating mb-3">
-                        <select class="form-select" multiple aria-label="multiple select example" formControlName="roles">
-                            <option *ngFor="let rol of roles" [ngValue]="rol.id">{{rol.rol}}</option>
-                        </select>
+                        <mat-form-field>
+                            <mat-label>Roles</mat-label>
+                            <mat-select formControlName="roles" multiple panelClass="select">
+                                <mat-option *ngFor="let rol of roles" [value]="rol.id">{{rol.rol}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
-                    {{editForm.value | json}}
+
+                    <div class="form-check mb-3">
+                        <input type="checkbox" class="form-check-input" (click)="showPassword()" id="changePassword" [checked]="changePassword">
+                        <label for="changePassword" class="form-check-label">¿Cambiar contraseña?</label>
+                    </div>
+                    <div class="form-floating mb-3" *ngIf="changePassword">
+                        <input class="form-control" formControlName="password" id="password" type="password" placeholder=" " required />
+                        <label for="password">Contraseña</label>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i>Guardar</button>
+                </div>
+            </form>
+        </div>
+        <div *ngIf="!usuario" class="modal-content">
+            <div class="modal-header">
+                <div class="spinner-border text-danger modal-title text-center" style="width: 3rem; height: 3rem;" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL ADD -->
+<div class="modal fade" id="modalAdd" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div *ngIf="usuario" class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Añadir usuario</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form [formGroup]="editForm" (ngSubmit)="addNuevo()" id="editForm" class="needs-validation" novalidate>
+            <div class="modal-body">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" formControlName="email" id="email" type="email" placeholder=" " required />
+                        <label for="email">Email</label>
+                        <div class="invalid-feedback">Debes completar el email</div>
+                    </div>
+
+                    
+                    <div class="form-floating mb-3">
+                        <input class="form-control" formControlName="username" id="username" type="text" placeholder=" " required />
+                        <label for="username">Username</label>
+                        <div class="invalid-feedback">Debes completar el username</div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <mat-form-field>
+                            <mat-label>Roles</mat-label>
+                            <mat-select formControlName="roles" multiple panelClass="select">
+                                <mat-option *ngFor="let rol of roles" [value]="rol.id">{{rol.rol}}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" formControlName="password" id="password" type="password" placeholder=" " required />
+                        <label for="password">Contraseña</label>
+                        <div class="invalid-feedback">Debes completar el password</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-danger" data-bs-dismiss="modal"><i class="bi bi-trash-fill"></i>Guardar</button>
                 </div>
             </form>
         </div>
