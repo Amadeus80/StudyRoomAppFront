@@ -1,9 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UsuarioService } from './usuario.service';
 import { MatPaginatorIntl,PageEvent } from '@angular/material/paginator';
 import { FormBuilder, Validators } from '@angular/forms';
-import { IDropdownSettings } from 'ng-multiselect-dropdown';
+
+declare var $: any;
 
 
 @Component({
@@ -13,6 +14,7 @@ import { IDropdownSettings } from 'ng-multiselect-dropdown';
 })
 export class UsuariosComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+  @ViewChild('closebutton') closebutton:any;
 
   usuarios: any = [];
   totalElementos:number = 0;
@@ -20,12 +22,15 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   usuario:any = {};
   roles:any = [];
   changePassword:boolean = false;
+  myModal:any;
+  successMessage:any;
+  errorMessage:any;
 
   editForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     username: ['', [Validators.required]],
     roles : [[""], [Validators.required]],
-    password : [""]
+    password : ['']
   })
 
   constructor(private usuarioService: UsuarioService, private paginator : MatPaginatorIntl, private fb:FormBuilder) {
@@ -34,6 +39,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.obtenerUsuarios(this.request);
+    this.validaciones();
     this.subscription.add(
       this.usuarioService.listaRoles().subscribe({
         next : (resp:any) => {
@@ -68,7 +74,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required]],
       roles : [[""], [Validators.required]],
-      password : [""]
+      password : ['']
     })
   }
 
@@ -86,13 +92,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       }
       this.usuarioService.addUsuario(userData).subscribe({
         next : (resp) => {
-          console.log(resp)
+          this.successMessage = "Se ha añadido correctamente el usuario";
         },
-        error: (err) => console.log(err)
+        error: (err) => {
+          console.log(err);
+          this.errorMessage = err;
+        }
       });
-    }
-    else{
-      console.log("invalido")
+      this.closebutton.nativeElement.click();
     }
   }
 
@@ -109,6 +116,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   editar(event:Event){
     this.usuario = null;
+    this.changePassword = false;
     this.subscription.add(
       this.usuarioService.findById(event).subscribe({
         next : (resp:any) => {
@@ -116,13 +124,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             id : resp.id,
             email:resp.email,
             username:resp.username,
-            roles:resp.roles
+            roles:resp.roles,
+            password: "aaaaaaaa"
           }
           this.editForm = this.fb.group({
             email: [this.usuario.email, [Validators.required, Validators.email]],
             username: [this.usuario.username, [Validators.required]],
             roles : [this.usuario.roles.map((rol:any) => rol.id), [Validators.required]],
-            password : [""]
+            password : [this.usuario.password]
           })
         },
         error : (err) => console.log(err)
@@ -132,26 +141,50 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   showPassword(){
     this.changePassword = !this.changePassword;
-    if(!this.changePassword){
-      this.editForm.get("password")?.clearValidators();
-      this.editForm.get("password")?.updateValueAndValidity();
-      console.log(this.editForm.get("password")?.validator);
+    if(this.changePassword){
       this.editForm = this.fb.group({
         email: [this.usuario.email, [Validators.required, Validators.email]],
         username: [this.usuario.username, [Validators.required]],
         roles : [this.usuario.roles.map((rol:any) => rol.id), [Validators.required]],
-        password : [""]
+        password : ['', [Validators.required, Validators.minLength(8)]]
+      })
+    }
+    else{
+      this.editForm = this.fb.group({
+        email: [this.usuario.email, [Validators.required, Validators.email]],
+        username: [this.usuario.username, [Validators.required]],
+        roles : [this.usuario.roles.map((rol:any) => rol.id), [Validators.required]],
+        password : ['aaaaaaaa', [Validators.required, Validators.minLength(8)]]
       })
     }
   }
 
   onEdit(){
-    if(this.editForm.valid){
-      console.log(this.editForm.value);
+    if((this.editForm.valid)){
+      console.log(this.editForm.value)
     }
-    else{
-      console.log("nooo");
-    }
+  }
+
+  validaciones(): void {
+    // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
+    (function () {
+      'use strict'
+      // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
+      var forms = document.querySelectorAll('.needs-validation')
+
+      // Bucle sobre ellos y evitar el envío
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event: any) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
   }
 
   ngOnDestroy(): void {

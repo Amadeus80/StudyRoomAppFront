@@ -64,7 +64,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
     (function () {
       'use strict'
-
       // Obtener todos los formularios a los que queremos aplicar estilos de validación de Bootstrap personalizados
       var forms = document.querySelectorAll('.needs-validation')
 
@@ -81,7 +80,6 @@ export class LoginComponent implements OnInit, OnDestroy {
           }, false)
         })
     })()
-
   }
 
 }
