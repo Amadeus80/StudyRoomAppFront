@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { UsuarioService } from './usuario.service';
-import { MatPaginatorIntl,PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl,PageEvent } from '@angular/material/paginator';
 import { FormBuilder, Validators } from '@angular/forms';
 
 declare var $: any;
@@ -16,6 +16,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   @ViewChild('closebutton') closebutton:any;
   @ViewChild('closebutton2') closebutton2:any;
+  @ViewChild('paginator') paginador: any;
 
   usuarios: any = [];
   totalElementos:number = 0;
@@ -26,6 +27,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   myModal:any;
   successMessage:any;
   errorMessage:any;
+  query:any;
+  busquedaFiltro:boolean=false;
 
   editForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -52,15 +55,28 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   private obtenerUsuarios(request:any){
-    this.subscription.add(
-      this.usuarioService.listaUsuarios(request).subscribe({
-        next: (resp:any) => {
-          this.usuarios = resp.content;
-          this.totalElementos = resp.totalElements;
-        },
-        error: (err) => console.log(err),
-      })
-    );
+    if(this.busquedaFiltro){
+      this.subscription.add(
+        this.usuarioService.listaUsuariosFiltro(request, this.query).subscribe({
+          next: (resp:any) => {
+            this.usuarios = resp.content;
+            this.totalElementos = resp.totalElements;
+          },
+          error: (err) => console.log(err),
+        })
+      );
+    }
+    else{
+      this.subscription.add(
+        this.usuarioService.listaUsuarios(request).subscribe({
+          next: (resp:any) => {
+            this.usuarios = resp.content;
+            this.totalElementos = resp.totalElements;
+          },
+          error: (err) => console.log(err),
+        })
+      );
+    }
   }
 
   nextPage(event: PageEvent){
@@ -69,7 +85,27 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.obtenerUsuarios(this.request);
   }
 
+  filtrar(){
+    if(this.query != null || this.query.lenght() > 0){
+      this.busquedaFiltro = true;
+      this.obtenerUsuarios(this.request);
+    }
+    else{
+      this.busquedaFiltro = false;
+      this.obtenerUsuarios(this.request);
+    }
+  }
+
+  limpiarFiltro(){
+    this.query = null;
+    this.busquedaFiltro = false;
+    this.request = {page:"0", size:"5"}
+    this.paginador.firstPage();
+    this.obtenerUsuarios(this.request);
+  }
+
   nuevo(){
+    this.resetMessages();
     this.usuario = {};
     this.editForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -118,6 +154,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   editar(event:Event){
+    this.resetMessages();
     this.usuario = null;
     this.changePassword = false;
     this.subscription.add(

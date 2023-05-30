@@ -15,6 +15,10 @@ export class UsuarioService {
     return this.http.get(`${URL}lista?page=${request['page']}&size=${request['size']}`, request);
   }
 
+  listaUsuariosFiltro(request:any, query:any){
+    return this.http.get(`${URL}lista?page=${request['page']}&size=${request['size']}&q=${query}`, request);
+  }
+
   addUsuario(userData:any){
     return this.http.post(`${URL}add-admin`, userData);
   }

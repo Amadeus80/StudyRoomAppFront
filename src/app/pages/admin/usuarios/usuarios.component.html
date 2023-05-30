@@ -1,8 +1,16 @@
 <div class="container-usuarios container">
     <div *ngIf="successMessage" class="alert alert-success my-2">{{successMessage}}</div>
     <div *ngIf="errorMessage" class="alert alert-danger my-2">{{errorMessage}}</div>
-    <div>
-        <button class="float-end btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd" (click)="nuevo()"><i class="bi bi-plus-circle-fill text-dark fs-5 me-2"></i> Nuevo</button>
+    <div class="d-flex justify-content-between">
+        <div class="w-50 d-flex gap-2 align-items-center">
+            <div class="form-floating w-75">
+                <input class="form-control" id="query" [(ngModel)]="query" type="text" placeholder=" "/>
+                <label for="query">Busqueda por email o username</label>
+            </div>
+            <button class="btn btn-primary btn-md" (click)="filtrar()">Filtrar</button>
+            <button class="btn btn-primary btn-md" (click)="limpiarFiltro()">Limpiar</button>
+        </div>
+        <button class="align-self-start btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd" (click)="nuevo()"><i class="bi bi-plus-circle-fill text-dark fs-5 me-2"></i> Nuevo</button>
     </div>
     <table class="table">
         <thead>
@@ -35,7 +43,7 @@
             </tr>
         </tbody>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElementos" (page)="nextPage($event)"> </mat-paginator>
+    <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElementos" (page)="nextPage($event)"> </mat-paginator>
 </div>
 
 <!-- MODAL EDIT -->
