@@ -105,7 +105,7 @@ export class AuthService {
         this.loggedIn.next(true);
         return resp;
       }),
-      catchError((err) => this.handlerError(err))
+      catchError((err) => throwError(() => err))
     )
   }
 
@@ -116,7 +116,7 @@ export class AuthService {
       map((resp:UserCreate) => {
         console.log(resp)
       }),
-      catchError((err) => this.handlerError(err))
+      catchError((err) => throwError(() => err))
     )
   }
 
@@ -153,11 +153,11 @@ export class AuthService {
     this.comprobarAdmin() ? this.admin.next(true) : this.admin.next(false);
   }
 
-  private handlerError(error:any):Observable<never>{
+  /* private handlerError(error:any):Observable<never>{
     let errorMessage = "Ha ocurrido un error";
     if(error){
       errorMessage = error.error.message;
     }
     return throwError(() => errorMessage);
-  }
+  } */
 }
