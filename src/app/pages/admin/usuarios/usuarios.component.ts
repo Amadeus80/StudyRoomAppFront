@@ -15,6 +15,7 @@ declare var $: any;
 export class UsuariosComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   @ViewChild('closebutton') closebutton:any;
+  @ViewChild('closebutton2') closebutton2:any;
 
   usuarios: any = [];
   totalElementos:number = 0;
@@ -79,6 +80,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   addNuevo(){
+    this.resetMessages();
     if(this.editForm.valid){
       let listaRoles = []
       for (const rolId of this.editForm.value.roles!) {
@@ -93,13 +95,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.usuarioService.addUsuario(userData).subscribe({
         next : (resp) => {
           this.successMessage = "Se ha añadido correctamente el usuario";
+          this.obtenerUsuarios(this.request);
         },
         error: (err) => {
           console.log(err);
           this.errorMessage = err;
         }
       });
-      this.closebutton.nativeElement.click();
+      this.closebutton2.nativeElement.click();
     }
   }
 
@@ -160,9 +163,47 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   onEdit(){
+    this.resetMessages();
     if((this.editForm.valid)){
-      console.log(this.editForm.value)
+      let listaRoles = []
+      for (const rolId of this.editForm.value.roles!) {
+        listaRoles.push({id: rolId})
+      }
+      let userData:any = {
+        email: this.editForm.value.email,
+        username : this.editForm.value.username,
+        password : this.editForm.value.password,
+        roles : listaRoles
+      }
+      if(this.changePassword){
+        this.usuarioService.editUsuarioConContraseña(userData, this.usuario.id).subscribe({
+          next : (resp) => {
+            this.successMessage = "Se ha editado correctamente el usuario";
+            this.obtenerUsuarios(this.request);
+          },
+          error : (err) => {
+            this.errorMessage = err;
+          }
+        })
+      }
+      else{
+        this.usuarioService.editUsuarioSinContraseña(userData, this.usuario.id).subscribe({
+          next : (resp) => {
+            this.successMessage = "Se ha editado correctamente el usuario";
+            this.obtenerUsuarios(this.request);
+          },
+          error : (err) => {
+            this.errorMessage = err;
+          }
+        })
+      }
+      this.closebutton.nativeElement.click();
     }
+  }
+
+  private resetMessages(){
+    this.errorMessage = null;
+    this.successMessage = null;
   }
 
   validaciones(): void {

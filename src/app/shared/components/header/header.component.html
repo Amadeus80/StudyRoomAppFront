@@ -24,14 +24,14 @@
         <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto my-2 my-lg-0 nav__enlaces">
-                <li class="nav-item mt-1"><a class="nav-link text-truncate" [routerLink]="'/contact'">Contactos</a></li>
-                <li class="nav-item mt-1"><a class="nav-link text-truncate" [routerLink]="'/usoPagina'">Uso de la Página</a></li>
-                <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/reservar'">Reservar</a></li>
-                <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/misReservas'">Mis Reservas</a></li>
-                <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/misDatos'">Mis Datos</a></li>
-                <li class="nav-item mt-1" *ngIf="isLogged && isAdmin"><a class="nav-link text-truncate" [routerLink]="'/admin'">Admin</a></li>
-                <li class="nav-item"><a *ngIf="!isLogged; else viewLogout" class="btn btn-primary px-3 py-1 w-100 text-truncate" [routerLink]="'/login'">Login</a></li>
-                <li class="nav-item"><a *ngIf="!isLogged" class="btn btn-primary px-3 py-1 w-100 ms-0 ms-lg-2 text-truncate" [routerLink]="'/register'">Registrarse</a></li>
+                <li class="nav-item mt-1"><a class="nav-link text-truncate" [routerLink]="'/contact'" routerLinkActive="active">Contactos</a></li>
+                <li class="nav-item mt-1"><a class="nav-link text-truncate" [routerLink]="'/usoPagina'" routerLinkActive="active">Uso de la Página</a></li>
+                <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/reservar'" routerLinkActive="active">Reservar</a></li>
+                <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/misReservas'" routerLinkActive="active">Mis Reservas</a></li>
+                <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/misDatos'" routerLinkActive="active">Mis Datos</a></li>
+                <li class="nav-item mt-1" *ngIf="isLogged && isAdmin"><a class="nav-link text-truncate" [routerLink]="'/admin'" routerLinkActive="active">Admin</a></li>
+                <li class="nav-item"><a *ngIf="!isLogged; else viewLogout" class="btn btn-primary px-3 py-1 w-100 text-truncate" [routerLink]="'/login'" routerLinkActive="active">Login</a></li>
+                <li class="nav-item"><a *ngIf="!isLogged" class="btn btn-primary px-3 py-1 w-100 ms-0 ms-lg-2 text-truncate" [routerLink]="'/register'" routerLinkActive="active">Registrarse</a></li>
             </ul>
         </div>
     </div>

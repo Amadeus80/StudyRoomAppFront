@@ -30,4 +30,12 @@ export class UsuarioService {
   listaRoles(){
     return this.http.get(`${URL}lista-roles`);
   }
+
+  editUsuarioSinContraseña(userData:any, idUsuario:any){
+    return this.http.post(`${URL}edit/${idUsuario}`, userData);
+  }
+
+  editUsuarioConContraseña(userData:any, idUsuario:any){
+    return this.http.post(`${URL}edit-password/${idUsuario}`, userData);
+  }
 }
