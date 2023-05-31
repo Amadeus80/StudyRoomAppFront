@@ -86,6 +86,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   filtrar(){
+    this.request = {page:"0", size:"5"};
     if(this.query != null || this.query.lenght() > 0){
       this.busquedaFiltro = true;
       this.obtenerUsuarios(this.request);
@@ -94,6 +95,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.busquedaFiltro = false;
       this.obtenerUsuarios(this.request);
     }
+    this.paginador.firstPage();
   }
 
   limpiarFiltro(){

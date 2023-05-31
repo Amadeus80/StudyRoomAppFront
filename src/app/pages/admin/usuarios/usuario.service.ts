@@ -36,10 +36,10 @@ export class UsuarioService {
   }
 
   editUsuarioSinContraseña(userData:any, idUsuario:any){
-    return this.http.post(`${URL}edit/${idUsuario}`, userData);
+    return this.http.put(`${URL}edit/${idUsuario}`, userData);
   }
 
   editUsuarioConContraseña(userData:any, idUsuario:any){
-    return this.http.post(`${URL}edit-password/${idUsuario}`, userData);
+    return this.http.put(`${URL}edit-password/${idUsuario}`, userData);
   }
 }

@@ -10,6 +10,8 @@ import { BotonDeleteComponent } from './boton-delete/boton-delete.component';
 import { BotonEditComponent } from './boton-edit/boton-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NavAdminComponent } from './nav-admin/nav-admin.component';
+import { ConsultasComponent } from './consultas/consultas.component';
 
 
 @NgModule({
@@ -18,6 +20,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     UsuariosComponent,
     BotonDeleteComponent,
     BotonEditComponent,
+    NavAdminComponent,
+    ConsultasComponent,
   ],
   imports: [
     CommonModule,
