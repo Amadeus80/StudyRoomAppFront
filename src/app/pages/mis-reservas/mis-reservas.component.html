@@ -16,8 +16,8 @@
                 </div>
             </div>
         </div>
-        
-    <div class="text-center mt-3">
+
+    <div class="text-center mt-3" *ngIf="reservas?.length > 0">
         <button (click)="cargarMas()" class="btn btn-primary btn-lg" *ngIf="!ultima">Cargar más</button>
     </div>
 
