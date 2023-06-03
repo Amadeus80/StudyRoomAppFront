@@ -1,0 +1,27 @@
+<div class="container-consultas container">
+
+    <app-nav-admin></app-nav-admin>
+
+    <div *ngIf="successMessage" class="alert alert-success my-2">{{successMessage}}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger my-2">{{errorMessage}}</div>
+
+    <h1 *ngIf="consultas.length == 0">No hay consultas pendientes de responder</h1>
+    <div class="card text-center mb-5" *ngFor="let consulta of consultas">
+        <div class="card-header">
+            {{consulta.mensaje}}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Usuario: {{consulta.nombreUsuario}} | Email: {{consulta.email}} | Teléfono: {{consulta.telefono}}</h5>
+            <div class="card-text">
+                <div class="form-floating my-3">
+                    <textarea id="respuesta" placeholder=" " class="form-control" style="height: 100px" [id]="consulta.id"></textarea>
+                    <label for="respuesta">Responder la consulta</label>
+                </div>
+            </div>
+            <button class="btn btn-primary" (click)="responder(consulta.id)">Responder</button>
+        </div>
+        <div class="card-footer text-body-secondary">
+            {{consulta.fecha | fecha}}
+        </div>
+    </div>
+</div>

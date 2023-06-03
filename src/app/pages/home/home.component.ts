@@ -11,13 +11,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   isLogged = false;
+  successMensaje:any=null;
   
   constructor(public authService: AuthService){}
 
   ngOnInit(): void {
+    if(localStorage.getItem("success")){
+      this.successMensaje = localStorage.getItem("success");
+      localStorage.removeItem("success");
+    }
     this.subscription.add(
       this.authService.isLogged.subscribe((resp) => (this.isLogged = resp))
     );
+  }
+
+  eliminarMensajeInfo(){
+    this.successMensaje = null;
   }
 
   ngOnDestroy(): void {
