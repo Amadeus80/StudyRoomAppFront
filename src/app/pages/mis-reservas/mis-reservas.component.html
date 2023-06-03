@@ -16,8 +16,9 @@
                 </div>
             </div>
         </div>
-    <div class="text-center mt-3" *ngIf="reservas?.length > 0">
-        <button (click)="cargarMas()" [disabled]="ultima" class="btn btn-primary btn-lg">Cargar más</button>
+        
+    <div class="text-center mt-3">
+        <button (click)="cargarMas()" class="btn btn-primary btn-lg" *ngIf="!ultima">Cargar más</button>
     </div>
 
     <ng-template #sinReservas>
