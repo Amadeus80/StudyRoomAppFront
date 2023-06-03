@@ -1,18 +1,25 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Asiento</th>
-      <th scope="col">Disponible</th>
-      <th scope="col">Fecha</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let asi of asientos">
-      <th>{{asi.asiento.id}}</th>
-      <td>{{asi.asiento.asiento}}</td>
-      <td>{{asi.disponible}}</td>
-      <td>{{asi.fecha}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="container py-3">
+  <div class="d-flex justify-content-between align-items-center gap-2">
+    <button [disabled]="botonAtrasFechaDisabled" class="btn btn-primary btn-lg" (click)="diaAnterior()"><i class="bi bi-arrow-left-circle-fill fs-2"></i></button>
+    <h1 class="text-center d-flex justify-content-center gap-2"><i class="bi bi-calendar"></i> {{fechaHoy | date:"dd/MM/yy"}}</h1>
+    <button class="btn btn-primary btn-lg" (click)="diaSiguiente()"><i class="bi bi-arrow-right-circle-fill fs-2"></i></button>
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Asiento</th>
+        <th scope="col">Disponible</th>
+        <th scope="col">Fecha</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asi of asientos">
+        <th>{{asi.asiento.id}}</th>
+        <td>{{asi.asiento.asiento}}</td>
+        <td>{{asi.disponible}}</td>
+        <td>{{asi.fecha}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

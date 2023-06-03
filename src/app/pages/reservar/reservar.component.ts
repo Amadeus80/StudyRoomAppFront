@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { ReservarService } from './reservar.service';
 
 @Component({
@@ -10,11 +10,16 @@ export class ReservarComponent implements OnInit {
 
   constructor(private reservarService:ReservarService) {}
 
-  fechaActual:any = new Date();
+  fechaActual:Date = new Date();
+  botonAtrasFechaDisabled:boolean = true;
   fechaHoy:string = `${this.fechaActual.getFullYear()}-${('0'+(this.fechaActual.getMonth()+1)).slice(-2)}-${this.fechaActual.getDate()}`;
   asientos:any;
 
   ngOnInit(): void{
+    this.obtenerReservasDia();
+  }
+  
+  obtenerReservasDia(){
     this.reservarService.listadoAsientos(this.fechaHoy).subscribe(
       {
         next:(data) => {
@@ -25,7 +30,21 @@ export class ReservarComponent implements OnInit {
           console.log(error)
         }
       }
-    )
+      )
+    }
+    
+    diaSiguiente(){
+      this.fechaActual.setDate(this.fechaActual.getDate() + 1);
+      this.botonAtrasFechaDisabled = (this.fechaActual > new Date())? false : true;
+      this.fechaHoy = `${this.fechaActual.getFullYear()}-${('0'+(this.fechaActual.getMonth()+1)).slice(-2)}-${this.fechaActual.getDate()}`;
+      this.obtenerReservasDia();
+    }
+    
+    diaAnterior(){
+      this.fechaActual.setDate(this.fechaActual.getDate() -1);
+      this.botonAtrasFechaDisabled = (this.fechaActual > new Date())? false : true;
+      this.fechaHoy = `${this.fechaActual.getFullYear()}-${('0'+(this.fechaActual.getMonth()+1)).slice(-2)}-${this.fechaActual.getDate()}`;
+      this.obtenerReservasDia();
   }
 
 }
