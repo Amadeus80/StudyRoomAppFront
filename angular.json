@@ -35,7 +35,7 @@
               "src/assets/js/bootstrap.bundle.min.js",
               "src/assets/js/simpleLightbox.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/sweetalert2/sweetalert2.all.min.js"
+              "node_modules/sweetalert2/dist/sweetalert2.all.min.js"
             ]
           },
           "configurations": {
