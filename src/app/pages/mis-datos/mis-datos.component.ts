@@ -58,6 +58,8 @@ export class MisDatosComponent implements OnInit, OnDestroy {
       }
       this.MisDatosService.editUsername(userData).subscribe({
         next : (resp) => {
+          this.datos.username = this.formEditUsername.value.usernameNuevo;
+          localStorage.setItem("username", userData.username);
           this.successMessage = "Se ha editado correctamente el username";
           console.log(this.successMessage);
         },
@@ -66,8 +68,6 @@ export class MisDatosComponent implements OnInit, OnDestroy {
           console.log(this.errorMessage);
         }
       })
-      this.datos.username = this.formEditUsername.value.usernameNuevo;
-      localStorage.setItem("username", userData.username);
       this.closebutton.nativeElement.click();
     }
   }
