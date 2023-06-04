@@ -12,7 +12,10 @@
                             <li>Hora: {{reserva.reservaPK.horario.hora}}</li>
                         </ul>
                     </div>
-                    <a href="#" class="btn btn-danger float-end">Cancelar</a>
+                    <a class="btn btn-danger float-end" 
+                    #closebutton 
+                    (click)="obtenerClaveReserva(reserva.reservaPK.asiento.id, reserva.reservaPK.horario.id, reserva.reservaPK.fecha)"
+                    data-bs-toggle="modal" data-bs-target="#confirmarCancelar">Cancelar</a>
                 </div>
             </div>
         </div>
@@ -24,4 +27,19 @@
     <ng-template #sinReservas>
         <h1 class="text-center">Sin reservas</h1>
     </ng-template>
+
+    <div class="modal fade" id="confirmarCancelar" tabindex="-1" aria-labelledby="confirmarCancelar" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">¿Estás seguro de que quieres cancelar la reserva?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" (click)="deleteReserva()">Confirmar</button>
+            </div>
+        </div>
+        </div>
+    </div>
 </div>

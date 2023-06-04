@@ -13,4 +13,8 @@ export class MisReservasService {
   getReservaUsuarios(page:any){
     return this.http.get(`${URL}usuario?page=${page}`);
   }
+
+  delete(claveReserva:any){
+    return this.http.delete(`${URL}delete`, {body: claveReserva});
+  }
 }

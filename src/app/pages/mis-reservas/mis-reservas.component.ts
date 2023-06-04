@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { MisReservasService } from './mis-reservas.service';
 import Swal from 'sweetalert2';
@@ -10,10 +10,12 @@ import Swal from 'sweetalert2';
 })
 export class MisReservasComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+  @ViewChild('closebutton') closebutton:any;
 
   page:any = 0;
   reservas:any;
   ultima!:boolean;
+  claveReserva:any;
 
   constructor(private misReservasService:MisReservasService){}
 
@@ -30,6 +32,7 @@ export class MisReservasComponent implements OnInit, OnDestroy {
             this.reservas.push(reserva);
           });
           this.ultima = resp.last
+          console.log()
         },
         error : (err) => {
           Swal.fire({
@@ -45,6 +48,39 @@ export class MisReservasComponent implements OnInit, OnDestroy {
   cargarMas(){
     this.page++;
     this.obtenerReservas();
+  }
+
+  obtenerClaveReserva(aisentoId:any, horarioId:any, fecha:any){
+    this.claveReserva = {
+      "asiento" : {"id":aisentoId},
+      "horario":{"id":horarioId},
+      "fecha":fecha
+    }
+  }
+
+  deleteReserva(){
+    this.subscription.add(
+      this.misReservasService.delete(this.claveReserva).subscribe({
+        next : (resp) => {
+          this.closebutton.nativeElement.click();
+          this.page = 0;
+          this.reservas = [];
+          this.obtenerReservas();
+          Swal.fire({
+            icon: 'success',
+            title: 'Se ha cancelado la reserva con éxito',
+            showConfirmButton: true,
+          })
+        },
+        error : (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err,
+          })
+        }
+      })
+    );
   }
 
 
