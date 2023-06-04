@@ -17,7 +17,10 @@ export class ErrorService implements HttpInterceptor{
         return next.handle(request).pipe(catchError(err => {
             if ([401, 403].includes(err.status)) {
                 // auto logout if 401 or 403 response returned from api
-                document.getElementsByClassName("modal-backdrop")[0].remove();
+                let modal = document.getElementsByClassName("modal-backdrop")
+                if(modal.length > 0){
+                  modal[0].remove();
+                }
                 this.authService.logout();
             }
 
