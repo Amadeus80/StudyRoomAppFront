@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { MisDatosRoutingModule } from './mis-datos-routing.module';
 import { MisDatosComponent } from './mis-datos.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { MisDatosComponent } from './mis-datos.component';
   ],
   imports: [
     CommonModule,
-    MisDatosRoutingModule
+    MisDatosRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class MisDatosModule { }

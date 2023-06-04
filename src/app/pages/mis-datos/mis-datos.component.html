@@ -1,9 +1,125 @@
 <div class="misDatos">
 
+    <div *ngIf="successMessage" class="alert alert-success my-2">{{successMessage}}</div>
+    <div *ngIf="errorMessage" class="alert alert-danger my-2">{{errorMessage}}</div>
+
     <div class="text-center m-auto w-50">
         <h1 class="mt-0">MIS DATOS PERSONALES</h1>
         <hr class="divider" />
         <p class="text-muted mb-5">Aqui podrás encontrar tus datos personales y modificarlos si quisieras!</p>
     </div>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <td colspan="2">
+                    <div class="form-floating w-50 m-auto">
+                        <input class="form-control" id="email" type="text" placeholder=" " value="{{datos.email}}" readonly />
+                        <label for="email">Email</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="form-floating w-50 m-auto">
+                        <input class="form-control" id="userName" type="text" placeholder=" " value="{{datos.username}}" readonly />
+                        <label for="userName">Username</label>
+                    </div>
+                </td>
+                <td>
+                    <div class="d-grid w-25 m-auto">
+                        <button class="btn btn-primary w-100 m-auto" id="cambiarUsername" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditUsername">Cambiar Username</button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td *ngIf="datos.roles[0].id==1">
+                    <div class="form-floating w-50 m-auto">
+                        <input class="form-control" id="rol1" type="text" placeholder=" " value="Administrador" readonly />
+                        <label for="rol1">Rol</label>
+                    </div>
+                </td>
+
+                <td *ngIf="datos.roles[0].id==2 || datos.roles[1].id==2">
+                    <div class="form-floating w-50 m-auto">
+                        <input class="form-control" id="rol2" type="text" placeholder=" " value="Usuario" readonly />
+                        <label for="rol2">Rol</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class="d-grid w-25 m-auto">
+                        <button class="btn btn-primary w-100 m-auto" id="cambiarPassword" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditPassword">Cambiar Password</button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    
+    <!-- MODAL EDIT USERNAME -->
+    <div class="modal fade" id="modalEditUsername" tabindex="-1" aria-labelledby="modalEditUsername" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="tituloModalEditUsername">Editar username</h1>
+                    <button type="button" class="btn-close" #closebutton data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="editUsername" [formGroup]="formEditUsername" (ngSubmit)="onEditUsername()" class="needs-validation" novalidate>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="usernameActual" type="text" placeholder=" " value="{{datos.username}}" readonly />
+                            <label for="usernameActual">Username actual</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" formControlName="usernameNuevo" id="usernameNuevo" type="text" placeholder=" " required />
+                            <label for="usernameNuevo">Nuevo username</label>
+                            <div class="invalid-feedback">Debes completar el username</div>
+                        </div>
+                        <button class="btn btn-success float-end" id="submitButton">Cambiar username</button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- MODAL EDIT PASSWORD -->
+    <div class="modal fade" id="modalEditPassword" tabindex="-1" aria-labelledby="modalEditPassword" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="tituloModalEditPassword">Editar Password</h1>
+                    <button type="button" class="btn-close" #closebutton2 data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="editPassword" [formGroup]="formEditPassword" (ngSubmit)="onEditPassword()" class="needs-validation" novalidate>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" formControlName="passwordNuevo" id="passwordNuevo" minlength="8" type="password" placeholder=" " required />
+                            <label for="passwordNuevo">Nuevo password</label>
+                            <div class="invalid-feedback">Debes completar el password correctamente</div>
+                        </div>
+                        <button class="btn btn-success float-end" id="submitButton">Cambiar password</button>
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 
 </div>
