@@ -15,4 +15,12 @@ export class ReservarService {
     return this.http.get(`${environment.API_URL}/api/reserva/`+fecha);
   }
 
+  asientosDisponibles(fecha:string, idAsiento:number){
+    return this.http.get(`${environment.API_URL}/api/horario/horas-disponibles/${fecha}/${idAsiento}`);
+  }
+
+  reservar(reservaPK: any){
+    return this.http.post(`${environment.API_URL}/api/reserva/add`, reservaPK);
+  }
+
 }

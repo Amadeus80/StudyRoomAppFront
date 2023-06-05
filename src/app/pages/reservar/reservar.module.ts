@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ReservarRoutingModule } from './reservar-routing.module';
 import { ReservarComponent } from './reservar.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ReservarComponent } from './reservar.component';
   ],
   imports: [
     CommonModule,
-    ReservarRoutingModule
+    ReservarRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class ReservarModule { }

@@ -37,15 +37,17 @@ export class MisDatosComponent implements OnInit, OnDestroy {
   }
 
   obtenerDatos(){
-    this.MisDatosService.getDatosUsuarioLogeado().subscribe({
-      next:(data) => {
-        this.datos = data;
-        console.log(this.datos);
-      },
-      error:(error) => {
-        console.log(error)
-      }
-    })
+    this.subscription.add(
+      this.MisDatosService.getDatosUsuarioLogeado().subscribe({
+        next:(data) => {
+          this.datos = data;
+          console.log(this.datos);
+        },
+        error:(error) => {
+          console.log(error)
+        }
+      })
+    )
   }
 
   onEditUsername(){
@@ -56,18 +58,20 @@ export class MisDatosComponent implements OnInit, OnDestroy {
         username : this.formEditUsername.value.usernameNuevo,
         password : "aaaaaaaaaaaaaaaa",
       }
-      this.MisDatosService.editUsername(userData).subscribe({
-        next : (resp) => {
-          this.datos.username = this.formEditUsername.value.usernameNuevo;
-          localStorage.setItem("username", userData.username);
-          this.successMessage = "Se ha editado correctamente el username";
-          console.log(this.successMessage);
-        },
-        error : (err) => {
-          this.errorMessage = err;
-          console.log(this.errorMessage);
-        }
-      })
+      this.subscription.add(
+        this.MisDatosService.editUsername(userData).subscribe({
+          next : (resp) => {
+            this.datos.username = this.formEditUsername.value.usernameNuevo;
+            localStorage.setItem("username", userData.username);
+            this.successMessage = "Se ha editado correctamente el username";
+            console.log(this.successMessage);
+          },
+          error : (err) => {
+            this.errorMessage = err;
+            console.log(this.errorMessage);
+          }
+        })
+      )
       this.closebutton.nativeElement.click();
     }
   }
@@ -80,16 +84,18 @@ export class MisDatosComponent implements OnInit, OnDestroy {
         username : this.datos.username,
         password : this.formEditPassword.value.passwordNuevo,
       }
-      this.MisDatosService.editPassword(userData).subscribe({
-        next : (resp) => {
-          this.successMessage = "Se ha editado correctamente el password";
-          console.log(this.successMessage);
-        },
-        error : (err) => {
-          this.errorMessage = err;
-          console.log(this.errorMessage);
-        }
-      })
+      this.subscription.add(
+        this.MisDatosService.editPassword(userData).subscribe({
+          next : (resp) => {
+            this.successMessage = "Se ha editado correctamente el password";
+            console.log(this.successMessage);
+          },
+          error : (err) => {
+            this.errorMessage = err;
+            console.log(this.errorMessage);
+          }
+        })
+      )
       this.closebutton2.nativeElement.click();
     }
   }
@@ -126,74 +132,3 @@ export class MisDatosComponent implements OnInit, OnDestroy {
   }
 
 }
-
-  // editar(event:Event){
-  //   this.resetMessages();
-  //   this.usuario = null;
-  //   this.changePassword = false;
-  //   this.subscription.add(
-  //     this.usuarioService.findById(event).subscribe({
-  //       next : (resp:any) => {
-  //         this.usuario = {
-  //           id : resp.id,
-  //           email:resp.email,
-  //           username:resp.username,
-  //           roles:resp.roles,
-  //           password: "aaaaaaaa"
-  //         }
-  //         this.editForm = this.fb.group({
-  //           email: [this.usuario.email, [Validators.required, Validators.email]],
-  //           username: [this.usuario.username, [Validators.required]],
-  //           roles : [this.usuario.roles.map((rol:any) => rol.id), [Validators.required]],
-  //           password : [this.usuario.password]
-  //         })
-  //       },
-  //       error : (err) => console.log(err)
-  //     })
-  //   );
-  // }
-
-
-  // onEdit(){
-  //   this.resetMessages();
-  //   if((this.editForm.valid)){
-  //     let listaRoles = []
-  //     for (const rolId of this.editForm.value.roles!) {
-  //       listaRoles.push({id: rolId})
-  //     }
-  //     let userData:any = {
-  //       email: this.editForm.value.email,
-  //       username : this.editForm.value.username,
-  //       password : this.editForm.value.password,
-  //       roles : listaRoles
-  //     }
-  //     if(this.changePassword){
-  //       this.usuarioService.editUsuarioConContraseña(userData, this.usuario.id).subscribe({
-  //         next : (resp) => {
-  //           this.successMessage = "Se ha editado correctamente el usuario";
-  //           this.obtenerUsuarios(this.request);
-  //         },
-  //         error : (err) => {
-  //           this.errorMessage = err;
-  //         }
-  //       })
-  //     }
-  //     else{
-  //       this.usuarioService.editUsuarioSinContraseña(userData, this.usuario.id).subscribe({
-  //         next : (resp) => {
-  //           this.successMessage = "Se ha editado correctamente el usuario";
-  //           this.obtenerUsuarios(this.request);
-  //         },
-  //         error : (err) => {
-  //           this.errorMessage = err;
-  //         }
-  //       })
-  //     }
-  //     this.closebutton.nativeElement.click();
-  //   }
-  // }
-
-  // private resetMessages(){
-  //   this.errorMessage = null;
-  //   this.successMessage = null;
-  // }

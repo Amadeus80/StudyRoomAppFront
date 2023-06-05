@@ -1,25 +1,55 @@
-<div class="container py-3">
+<div class="container py-3 reservar">
+
+  <div *ngIf="successMessage" class="alert alert-success my-2">{{successMessage}}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger my-2">{{errorMessage}}</div>
+
   <div class="d-flex justify-content-between align-items-center gap-2">
     <button [disabled]="botonAtrasFechaDisabled" class="btn btn-primary btn-lg" (click)="diaAnterior()"><i class="bi bi-arrow-left-circle-fill fs-2"></i></button>
     <h1 class="text-center d-flex justify-content-center gap-2"><i class="bi bi-calendar"></i> {{fechaHoy | date:"dd/MM/yy"}}</h1>
     <button class="btn btn-primary btn-lg" (click)="diaSiguiente()"><i class="bi bi-arrow-right-circle-fill fs-2"></i></button>
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Id</th>
-        <th scope="col">Asiento</th>
-        <th scope="col">Disponible</th>
-        <th scope="col">Fecha</th>
-      </tr>
-    </thead>
+
+  <table class="table mt-5">
     <tbody>
       <tr *ngFor="let asi of asientos">
-        <th>{{asi.asiento.id}}</th>
-        <td>{{asi.asiento.asiento}}</td>
-        <td>{{asi.disponible}}</td>
-        <td>{{asi.fecha}}</td>
+        <td class="text-center" *ngFor="let asiento of asi"><button class="btn btn-primary btn-xl" [disabled]="!asiento.disponible" data-bs-toggle="modal" data-bs-target="#modalReservar" (click)="actualizarDatos(asiento.asiento.id, asiento.asiento.asiento )">{{asiento.asiento.asiento}}</button></td>
       </tr>
     </tbody>
   </table>
+  
+</div>
+
+<!-- MODAL EDIT PASSWORD -->
+<div class="modal fade" id="modalReservar" tabindex="-1" aria-labelledby="modalReservar" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="tituloModalReservar">Reservar Asiento</h1>
+        <button type="button" class="btn-close" #closebutton data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <!-- [formGroup]="formReservar" (ngSubmit)="onDatosReserva()" -->
+
+      <div class="modal-body">
+        <form id="formReservar" [formGroup]="formReservar" (ngSubmit)="reservar()" class="needs-validation" novalidate>
+          <h3>id Asiento -> {{idAsiento}}</h3>
+          <h3>Asiento -> {{nombreAsiento}}</h3>
+          <h3>Fecha -> {{fechaAsiento}}</h3>
+          <div class="form-floating mb-3">
+            <select class="form-control" formControlName="asiDisp" name="asientosDisponibles" id="asientosDisponibles" placeholder=" " required>
+              <option value="{{asiDisp.id}}" *ngFor="let asiDisp of asientosDisponibles">{{asiDisp.hora}}</option>
+            </select>
+            <label for="asientosDisponibles">Horas Disponibles <small>(Cada tramo horario dispone de una hora)</small></label>
+          </div>
+          <button class="btn btn-success float-end" id="submitButton">Reservar asiento</button>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+
+    </div>
+  </div>
 </div>
