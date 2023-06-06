@@ -96,9 +96,7 @@ export class ReservarComponent implements OnInit {
         this.reservarService.reservar(this.reservaPk).subscribe(
         {
           next:(data) => {
-            this.formReservar = this.fb.group({
-              asiDisp: ['', [Validators.required]]
-            });
+            this.resetearInputHora();
             Swal.fire({
               icon: 'success',
               title: 'Se ha reservado el asiento correctamente!',
@@ -134,6 +132,12 @@ export class ReservarComponent implements OnInit {
         }
       })
     )
+  }
+
+  resetearInputHora(){
+    this.formReservar = this.fb.group({
+      asiDisp: ['', [Validators.required]]
+    });
   }
 
 }
