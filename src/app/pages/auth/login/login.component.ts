@@ -5,6 +5,7 @@ import { User } from 'src/app/shared/models/user.interface';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MatSnackBar } from "@angular/material/snack-bar";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -12,9 +13,9 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
-  errorLogin: boolean = false;
-  errorMessage!:string;
   private subscription: Subscription = new Subscription();
+
+  successRegister:any=null;
 
   loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -29,6 +30,16 @@ export class LoginComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    if(localStorage.getItem("successRegister")){
+      this.successRegister = localStorage.getItem("successRegister");
+      Swal.fire({
+        icon: 'success',
+        title: this.successRegister,
+        showConfirmButton: true,
+      })
+      localStorage.removeItem("successRegister");
+      this.successRegister = null;
+    }
     this.validaciones();
   }
 
@@ -47,13 +58,16 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.authService.login(authData).subscribe({
           next: (resp) => {
             if (resp) {
-              localStorage.setItem("success", "Has iniciado sesión con éxito");
+              localStorage.setItem("success", "Has iniciado sesión con éxito!");
               this.router.navigate(['']);
             }
           },
           error: (e) => {
-            this.errorLogin = true;
-            this.errorMessage = e;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: e,
+            })
           },
         })
       );

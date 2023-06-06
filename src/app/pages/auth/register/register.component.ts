@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserCreate } from 'src/app/shared/models/user.interface';
 import { MatSnackBar } from "@angular/material/snack-bar";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register',
@@ -12,8 +13,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit, OnDestroy{
-  errorRegister: boolean = false;
-  errorMessage!:string;
   private subscription: Subscription = new Subscription();
 
   registerForm = this.fb.group({
@@ -43,12 +42,16 @@ export class RegisterComponent implements OnInit, OnDestroy{
       this.subscription.add(
         this.authService.register(registerData).subscribe({
           next: (resp) => {
+            localStorage.setItem("successRegister", "Te has registrado correctamente!");
             this.router.navigate(["/login"])
           },
           error : (e) => {
-            this.errorRegister = true;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: e,
+            })
             console.log(e);
-            this.errorMessage = e;
           }
         })
       )

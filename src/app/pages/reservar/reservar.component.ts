@@ -3,6 +3,7 @@ import { ReservarService } from './reservar.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-reservar',
@@ -26,8 +27,6 @@ export class ReservarComponent implements OnInit {
   fechaAsiento:string = "";
   asientosDisponibles: any;
   reservaPk: any;
-  successMessage:any;
-  errorMessage:any;
 
   formReservar = this.fb.group({
     asiDisp: ['', [Validators.required]]
@@ -83,7 +82,6 @@ export class ReservarComponent implements OnInit {
   }
 
   reservar(){
-    this.resetMessages();
     if((this.formReservar.valid)){
       this.reservaPk = {"reservaPK": {
         "asiento": {
@@ -98,11 +96,22 @@ export class ReservarComponent implements OnInit {
         this.reservarService.reservar(this.reservaPk).subscribe(
         {
           next:(data) => {
-            this.successMessage = `Se ha reservado el asiento ${this.nombreAsiento} correctamente`;
+            this.formReservar = this.fb.group({
+              asiDisp: ['', [Validators.required]]
+            });
+            Swal.fire({
+              icon: 'success',
+              title: 'Se ha reservado el asiento correctamente!',
+              showConfirmButton: true,
+            })
           },
           error:(error) => {
-            this.errorMessage = error;
-            console.log(this.errorMessage);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: error,
+            })
+            console.log(error);
           }
         })
       )
@@ -125,11 +134,6 @@ export class ReservarComponent implements OnInit {
         }
       })
     )
-  }
-
-  private resetMessages(){
-    this.errorMessage = null;
-    this.successMessage = null;
   }
 
 }

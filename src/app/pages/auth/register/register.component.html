@@ -1,42 +1,5 @@
-<!-- <div class="register-form">
-    <div *ngIf="errorRegister" class="alert alert-danger">{{errorMessage}}</div>
-    
-    <mat-card>
-        <mat-card-content>
-            <h1>Registrarse</h1>
-            <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-                <mat-form-field class="full-width-input">
-                    <mat-label>Username</mat-label>
-                    <input matInput type="text" formControlName="username">
-                </mat-form-field>
-                <p class="text-danger" *ngIf="registerForm.get('username')?.errors?.['required']">Este campo es requerido</p>
-
-                <mat-form-field class="full-width-input">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="email" formControlName="email">
-                </mat-form-field>
-                <p class="text-danger" *ngIf="registerForm.get('email')?.errors?.['required']">Este campo es requerido</p>
-                <p class="text-danger" *ngIf="registerForm.get('email')?.errors?.['email']">Introduzca un email valido</p>
-    
-                <mat-form-field class="full-width-input">
-                    <mat-label>Password</mat-label>
-                    <input matInput type="password" formControlName="password">
-                </mat-form-field>
-                <p class="text-danger" *ngIf="registerForm.get('password')?.errors?.['required']">Este campo es requerido</p>
-                <p class="text-danger" *ngIf="registerForm.get('password')?.errors?.['minlength']">La contraseña debe tener como minimo 8 caracteres</p>
-    
-                <button type="submit" class="btn btn-primary">Registrase</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
-</div> -->
-
-
-
 <!-- Regitro -->
 <div class="register-form">
-
-    <div *ngIf="errorRegister" class="alert alert-danger">{{errorMessage}}</div>
 
     <section id="register">
         <div class="container">

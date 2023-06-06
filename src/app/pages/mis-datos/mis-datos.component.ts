@@ -17,8 +17,6 @@ export class MisDatosComponent implements OnInit, OnDestroy {
   @ViewChild('closebutton2') closebutton2:any;
 
   datos:any;
-  successMessage:any;
-  errorMessage:any;
 
   formEditUsername = this.fb.group({
     usernameNuevo: ['', [Validators.required]]
@@ -51,7 +49,6 @@ export class MisDatosComponent implements OnInit, OnDestroy {
   }
 
   onEditUsername(){
-    this.resetMessages();
     if((this.formEditUsername.valid)){
       let userData:any = {
         email: this.datos.email,
@@ -63,12 +60,20 @@ export class MisDatosComponent implements OnInit, OnDestroy {
           next : (resp) => {
             this.datos.username = this.formEditUsername.value.usernameNuevo;
             localStorage.setItem("username", userData.username);
-            this.successMessage = "Se ha editado correctamente el username";
-            console.log(this.successMessage);
+            Swal.fire({
+              icon: 'success',
+              title: 'Se ha editado correctamente el username!',
+              showConfirmButton: true,
+            })
+            console.log("Se ha editado correctamente el username!");
           },
           error : (err) => {
-            this.errorMessage = err;
-            console.log(this.errorMessage);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err,
+            })
+            console.log(err);
           }
         })
       )
@@ -77,7 +82,6 @@ export class MisDatosComponent implements OnInit, OnDestroy {
   }
 
   onEditPassword(){
-    this.resetMessages();
     if((this.formEditPassword.valid)){
       let userData:any = {
         email: this.datos.email,
@@ -87,22 +91,25 @@ export class MisDatosComponent implements OnInit, OnDestroy {
       this.subscription.add(
         this.MisDatosService.editPassword(userData).subscribe({
           next : (resp) => {
-            this.successMessage = "Se ha editado correctamente el password";
-            console.log(this.successMessage);
+            Swal.fire({
+              icon: 'success',
+              title: 'Se ha editado correctamente el password!',
+              showConfirmButton: true,
+            })
+            console.log("Se ha editado correctamente el password");
           },
           error : (err) => {
-            this.errorMessage = err;
-            console.log(this.errorMessage);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err,
+            })
+            console.log(err);
           }
         })
       )
       this.closebutton2.nativeElement.click();
     }
-  }
-
-  private resetMessages(){
-    this.errorMessage = null;
-    this.successMessage = null;
   }
 
   ngOnDestroy(): void {

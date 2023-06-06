@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { ContactService } from './contact.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { contact } from 'src/app/shared/models/contact.interface';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-contact',
@@ -13,9 +14,7 @@ import { contact } from 'src/app/shared/models/contact.interface';
 })
 export class ContactComponent implements OnInit, OnDestroy {
 
-  successMessage: any = null; 
   errorLogin: boolean = false;
-  errorMessage!:string;
   private subscription: Subscription = new Subscription();
   isLogged = false;
 
@@ -38,6 +37,42 @@ export class ContactComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  onContact(): void {
+    if (this.contactForm.valid) {
+      const formValue = this.contactForm.value;
+      const authData: contact = {
+        nombreUsuario: formValue.nombreUsuario!,
+        email: formValue.email!,
+        telefono: formValue.telefono!,
+        mensaje: formValue.mensaje!
+      };
+      this.subscription.add(
+        this.contactService.enviarConsulta(authData).subscribe({
+          next: (resp) => {
+            if (resp) {
+              this.contactForm.reset();
+              document.getElementById("contactForm")?.classList.remove("ng-touched");
+              document.getElementById("contactForm")?.classList.remove("was-validated");
+              Swal.fire({
+                icon: 'success',
+                title: 'Consulta enviada con éxito!',
+                showConfirmButton: true,
+              })
+            }
+          },
+          error: (e) => {
+            this.errorLogin = true;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: e,
+            })
+          },
+        })
+      );
+    }
+  }  
 
   validaciones(): void {
     // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
@@ -62,33 +97,5 @@ export class ContactComponent implements OnInit, OnDestroy {
     })()
 
   }
-
-  onContact(): void {
-    if (this.contactForm.valid) {
-      const formValue = this.contactForm.value;
-      const authData: contact = {
-        nombreUsuario: formValue.nombreUsuario!,
-        email: formValue.email!,
-        telefono: formValue.telefono!,
-        mensaje: formValue.mensaje!
-      };
-      this.subscription.add(
-        this.contactService.enviarConsulta(authData).subscribe({
-          next: (resp) => {
-            if (resp) {
-              this.contactForm.reset();
-              document.getElementById("contactForm")?.classList.remove("ng-touched");
-              document.getElementById("contactForm")?.classList.remove("was-validated");
-              this.successMessage = "Consulta enviada con éxito!!";
-            }
-          },
-          error: (e) => {
-            this.errorLogin = true;
-            this.errorMessage = e;
-          },
-        })
-      );
-    }
-  }  
 
 }

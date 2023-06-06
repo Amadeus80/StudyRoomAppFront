@@ -3,9 +3,9 @@ import { Subscription } from 'rxjs';
 import { UsuarioService } from './usuario.service';
 import { MatPaginator, MatPaginatorIntl,PageEvent } from '@angular/material/paginator';
 import { FormBuilder, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 declare var $: any;
-
 
 @Component({
   selector: 'app-usuarios',
@@ -25,8 +25,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   roles:any = [];
   changePassword:boolean = false;
   myModal:any;
-  successMessage:any;
-  errorMessage:any;
   query:any;
   busquedaFiltro:boolean=false;
 
@@ -107,7 +105,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   nuevo(){
-    this.resetMessages();
     this.usuario = {};
     this.editForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -118,7 +115,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   addNuevo(){
-    this.resetMessages();
     if(this.editForm.valid){
       let listaRoles = []
       for (const rolId of this.editForm.value.roles!) {
@@ -132,12 +128,20 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       }
       this.usuarioService.addUsuario(userData).subscribe({
         next : (resp) => {
-          this.successMessage = "Se ha añadido correctamente el usuario";
+          Swal.fire({
+            icon: 'success',
+            title: 'Se ha añadido correctamente el usuario!',
+            showConfirmButton: true,
+          })
           this.obtenerUsuarios(this.request);
         },
         error: (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err,
+          })
           console.log(err);
-          this.errorMessage = err;
         }
       });
       this.closebutton2.nativeElement.click();
@@ -148,15 +152,26 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.usuarioService.borrarUsuario(event).subscribe({
         next: (resp) => {
+          Swal.fire({
+            icon: 'success',
+            title: 'El usuario ha sido borrado correctamente!',
+            showConfirmButton: true,
+          })
           this.obtenerUsuarios(this.request);
         },
-        error : (err) => console.log(err)
+        error : (err) =>{ 
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err,
+          })
+          console.log(err) 
+        }
       })
     )
   }
 
   editar(event:Event){
-    this.resetMessages();
     this.usuario = null;
     this.changePassword = false;
     this.subscription.add(
@@ -202,7 +217,6 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   onEdit(){
-    this.resetMessages();
     if((this.editForm.valid)){
       let listaRoles = []
       for (const rolId of this.editForm.value.roles!) {
@@ -217,32 +231,45 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       if(this.changePassword){
         this.usuarioService.editUsuarioConContraseña(userData, this.usuario.id).subscribe({
           next : (resp) => {
-            this.successMessage = "Se ha editado correctamente el usuario";
+            Swal.fire({
+              icon: 'success',
+              title: 'Se ha editado correctamente el usuario!',
+              showConfirmButton: true,
+            })
             this.obtenerUsuarios(this.request);
           },
           error : (err) => {
-            this.errorMessage = err;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err,
+            })
+            console.log(err)
           }
         })
       }
       else{
         this.usuarioService.editUsuarioSinContraseña(userData, this.usuario.id).subscribe({
           next : (resp) => {
-            this.successMessage = "Se ha editado correctamente el usuario";
+            Swal.fire({
+              icon: 'success',
+              title: 'Se ha editado correctamente el usuario!',
+              showConfirmButton: true,
+            })
             this.obtenerUsuarios(this.request);
           },
           error : (err) => {
-            this.errorMessage = err;
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err,
+            })
+            console.log(err)
           }
         })
       }
       this.closebutton.nativeElement.click();
     }
-  }
-
-  private resetMessages(){
-    this.errorMessage = null;
-    this.successMessage = null;
   }
 
   validaciones(): void {

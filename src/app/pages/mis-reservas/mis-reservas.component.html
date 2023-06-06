@@ -1,4 +1,11 @@
 <div class="container-reservas container py-5">
+
+    <div class="text-center m-auto w-50">
+        <h1 class="mt-0">MIS RESERVAS</h1>
+        <hr class="divider" />
+        <p class="text-muted mb-5">En el apartado Mis Reservas encontrarás todas las reservas realizadas, con la opción de cancelarla cuando quieras!</p>
+    </div>
+
     <div class="container">
         <div class="row gx-3 justify-content-center" *ngIf="reservas?.length > 0; else sinReservas">
             <div class="col col-12 col-md-6 col-lg-4" *ngFor="let reserva of reservas">
@@ -29,7 +36,12 @@
     </div>
 
     <ng-template #sinReservas>
-        <h1 class="text-center">Sin reservas</h1>
+        <div class="text-center">
+            <h1 class="text-center">No has realizado ninguna reserva</h1>
+            <hr class="divider" />
+            <img class="margin: auto;" src = "assets/img/misReservas/sinReservas.svg" alt="Sin reservas"/>
+        </div>
+        
     </ng-template>
 
     <div class="modal fade" id="confirmarCancelar" tabindex="-1" aria-labelledby="confirmarCancelar" aria-hidden="true">

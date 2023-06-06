@@ -2,9 +2,6 @@
 
     <app-nav-admin></app-nav-admin>
 
-    <div *ngIf="successMessage" class="alert alert-success my-2">{{successMessage}}</div>
-    <div *ngIf="errorMessage" class="alert alert-danger my-2">{{errorMessage}}</div>
-
     <h1 *ngIf="consultas.length == 0">No hay consultas pendientes de responder</h1>
     <div class="card text-center mb-5" *ngFor="let consulta of consultas">
         <div class="card-header">

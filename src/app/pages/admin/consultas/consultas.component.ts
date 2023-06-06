@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ConsultaService } from './consulta.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-consultas',
@@ -11,8 +12,6 @@ export class ConsultasComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
   consultas:any;
-  errorMessage:any;
-  successMessage:any;
 
   constructor(private consultaService: ConsultaService){
 
@@ -26,16 +25,25 @@ export class ConsultasComponent implements OnInit, OnDestroy {
     this.subscription.add(
       this.consultaService.getConsultasNoResueltas().subscribe({
         next : (resp) => this.consultas = resp,
-        error : (err) => this.errorMessage = err
+        error : (err) => {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: err,
+          })
+        }
       })
     )
   }
 
   responder(id:string){
-    this.resetInfoMessages();
     let respuesta:any = document.getElementById(id);
     if(respuesta.value.length <= 5){
-      this.errorMessage = "Indica más de 5 caracteres en la respuesta";
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: "Indica más de 5 caracteres en la respuesta",
+      })
     }
     else{
       respuesta = {"mensaje" : respuesta.value};
@@ -43,20 +51,27 @@ export class ConsultasComponent implements OnInit, OnDestroy {
         this.consultaService.resolverConsulta(id, respuesta).subscribe({
           next : (resp) => {
             this.obtenerConsultas();
-            this.successMessage = "Se ha resuelto la consulta";
+            Swal.fire({
+              icon: 'success',
+              title: 'Se ha resuelto la consulta!',
+              showConfirmButton: true,
+            })
           },
-          error : (err) => this.errorMessage = err
+          error : (err) =>{
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: err,
+            })
+            console.log(err);
+          }
         })
       );
     }
-  }
-
-  resetInfoMessages(){
-    this.errorMessage = null;
-    this.successMessage = null;
   }
   
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+  
 }

@@ -1,35 +1,5 @@
-<!-- <div class="login-form">
-    <div *ngIf="errorLogin" class="alert alert-danger">{{errorMessage | error }}</div>
-
-    <mat-card>
-        <mat-card-content>
-            <h1>Login</h1>
-            <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
-                <mat-form-field class="full-width-input">
-                    <mat-label>Email</mat-label>
-                    <input matInput type="email" formControlName="email">
-                </mat-form-field>
-                <p class="text-danger" *ngIf="loginForm.get('email')?.errors?.['required']">Este campo es requerido</p>
-                <p class="text-danger" *ngIf="loginForm.get('email')?.errors?.['email']">Introduzca un email valido</p>
-    
-                <mat-form-field class="full-width-input">
-                    <mat-label>Password</mat-label>
-                    <input matInput type="password" formControlName="password">
-                </mat-form-field>
-                <p class="text-danger" *ngIf="loginForm.get('password')?.errors?.['required']">Este campo es requerido</p>
-                <p class="text-danger" *ngIf="loginForm.get('password')?.errors?.['minlength']">La contraseña debe tener como minimo 8 caracteres</p>
-    
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
-</div> -->
-
-
 <!-- Login -->
 <div class="login-form">
-
-    <div *ngIf="errorLogin" class="alert alert-danger">{{errorMessage}}</div>
 
     <section id="login">
         <div class="container">
