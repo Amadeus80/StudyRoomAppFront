@@ -17,6 +17,7 @@ const routes: Routes = [
   { path: 'misReservas', loadChildren: () => import('./pages/mis-reservas/mis-reservas.module').then(m => m.MisReservasModule) },
   { path: 'usoPagina', loadChildren: () => import('./pages/uso-pagina/uso-pagina.module').then(m => m.UsoPaginaModule) },
   { path: 'reservar', loadChildren: () => import('./pages/reservar/reservar.module').then(m => m.ReservarModule) },
+  { path: 'comunicados', loadChildren: () => import('./pages/comunicados/comunicados.module').then(m => m.ComunicadosModule) },
   {path:'**', component : NotFoundComponent}
 ];
 

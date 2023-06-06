@@ -1,0 +1,16 @@
+<div class="container-reservas container py-5">
+    <h1 class="text-center py-3">Comunicados</h1>
+    <ul class="text-center row gx-5">
+        <li class="text-center col col-12 col-md-4 mb-5" *ngFor="let mensaje of mensajes">
+            <a class="text-white">
+                <h2 class="text-capitalize">{{mensaje.usuario.username}}</h2>
+                <p class="text-break px-2 overflow-hidden">{{mensaje.mensaje}}</p>
+                <small>{{mensaje.fecha | date:"dd/MM/yy"}}</small>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container">
+    <button class="btn btn-primary" (click)="send()">Enviar</button>
+</div>
