@@ -32,7 +32,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     email: ['', [Validators.required, Validators.email]],
     username: ['', [Validators.required]],
     roles : [[""], [Validators.required]],
-    password : ['']
+    password : ['', [Validators.required, Validators.minLength(8)]],
   })
 
   constructor(private usuarioService: UsuarioService, private paginator : MatPaginatorIntl, private fb:FormBuilder) {
@@ -110,8 +110,9 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       username: ['', [Validators.required]],
       roles : [[""], [Validators.required]],
-      password : ['']
+      password : ['', [Validators.required, Validators.minLength(8)]]
     })
+    this.resetearFormAdd()
   }
 
   addNuevo(){
@@ -133,6 +134,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             title: 'Se ha añadido correctamente el usuario!',
             showConfirmButton: true,
           })
+          this.resetearFormAdd()
           this.obtenerUsuarios(this.request);
         },
         error: (err) => {
@@ -188,7 +190,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             email: [this.usuario.email, [Validators.required, Validators.email]],
             username: [this.usuario.username, [Validators.required]],
             roles : [this.usuario.roles.map((rol:any) => rol.id), [Validators.required]],
-            password : [this.usuario.password]
+            password : [this.usuario.password, [Validators.required, Validators.minLength(8)]]
           })
         },
         error : (err) => console.log(err)
@@ -270,6 +272,12 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       }
       this.closebutton.nativeElement.click();
     }
+  }
+
+  resetearFormAdd(){
+    this.editForm.reset();
+    document.getElementById("addForm")?.classList.remove("ng-touched");
+    document.getElementById("addForm")?.classList.remove("was-validated");
   }
 
   validaciones(): void {
