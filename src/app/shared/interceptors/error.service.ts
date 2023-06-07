@@ -23,6 +23,7 @@ export class ErrorService implements HttpInterceptor{
                 }
 
                 this.authService.logout();
+                location.href = "/";
             }
 
             const error = err.error?.message || err.statusText;

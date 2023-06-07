@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminComponent } from './admin.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { ConsultasComponent } from './consultas/consultas.component';
+import { AddComunicadoComponent } from './add-comunicado/add-comunicado.component';
 
 const routes: Routes = [
   { path: '', redirectTo : "usuarios", pathMatch : "full" },
   { path: 'usuarios', component: UsuariosComponent },
-  { path: 'consultas', component: ConsultasComponent }
+  { path: 'consultas', component: ConsultasComponent },
+  { path: 'add-comunicado', component: AddComunicadoComponent }
 
 ];
 
