@@ -12,6 +12,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpService } from './shared/interceptors/http.service';
 import { ErrorService } from './shared/interceptors/error.service';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { SharedsModule } from './shared/components/shareds/shareds.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     BrowserAnimationsModule,
     SidebarModule,
     HttpClientModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    SharedsModule
   ],
   providers: [{
     provide : HTTP_INTERCEPTORS,

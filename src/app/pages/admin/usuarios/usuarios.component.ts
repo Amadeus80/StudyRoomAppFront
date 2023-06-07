@@ -28,6 +28,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   query:any;
   busquedaFiltro:boolean=false;
   usuarioIdDelete:any;
+  cargando:boolean = false;
 
   editForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -54,12 +55,14 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   private obtenerUsuarios(request:any){
+    this.cargando = true;
     if(this.busquedaFiltro){
       this.subscription.add(
         this.usuarioService.listaUsuariosFiltro(request, this.query).subscribe({
           next: (resp:any) => {
             this.usuarios = resp.content;
             this.totalElementos = resp.totalElements;
+            this.cargando = false;
           },
           error: (err) => console.log(err),
         })
@@ -71,6 +74,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
           next: (resp:any) => {
             this.usuarios = resp.content;
             this.totalElementos = resp.totalElements;
+            this.cargando = false;
           },
           error: (err) => console.log(err),
         })
@@ -118,6 +122,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   addNuevo(){
     if(this.editForm.valid){
+      this.cargando = true;
       let listaRoles = []
       for (const rolId of this.editForm.value.roles!) {
         listaRoles.push({id: rolId})
@@ -156,6 +161,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   onDelete(){
+    this.cargando = true;
     this.subscription.add(
       this.usuarioService.borrarUsuario(this.usuarioIdDelete).subscribe({
         next: (resp) => {
@@ -179,6 +185,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   editar(event:Event){
+    this.cargando = true;
     this.usuario = null;
     this.changePassword = false;
     this.subscription.add(
@@ -197,6 +204,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             roles : [this.usuario.roles.map((rol:any) => rol.id), [Validators.required]],
             password : [this.usuario.password, [Validators.required, Validators.minLength(8)]]
           })
+          this.cargando = false;
         },
         error : (err) => console.log(err)
       })
@@ -225,6 +233,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   onEdit(){
     if((this.editForm.valid)){
+      this.cargando = true;
       let listaRoles = []
       for (const rolId of this.editForm.value.roles!) {
         listaRoles.push({id: rolId})
