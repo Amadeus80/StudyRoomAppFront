@@ -3,6 +3,7 @@ import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ComunicadosService } from './comunicados.service';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/app/environments/environment';
 
 @Component({
   selector: 'app-comunicados',
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./comunicados.component.css']
 })
 export class ComunicadosComponent implements OnInit, OnDestroy {
-  webSocketEndPoint: string = 'http://localhost:8080/comunicados';
+  webSocketEndPoint: string = `${environment.API_URL}/comunicados`;
   topic: string = "/topic/comunicados";
   stompClient: any;
   mensajes:any = [];

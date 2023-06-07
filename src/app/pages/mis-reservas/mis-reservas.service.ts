@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/app/environments/environment';
 
-const URL= "http://localhost:8080/api/reserva/";
+const URL= `${environment.API_URL}/api/reserva/`;
 
 @Injectable({
   providedIn: 'root'

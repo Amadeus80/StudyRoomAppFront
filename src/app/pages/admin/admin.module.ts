@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NavAdminComponent } from './nav-admin/nav-admin.component';
 import { ConsultasComponent } from './consultas/consultas.component';
+import { AddComunicadoComponent } from './add-comunicado/add-comunicado.component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { ConsultasComponent } from './consultas/consultas.component';
     BotonEditComponent,
     NavAdminComponent,
     ConsultasComponent,
+    AddComunicadoComponent,
   ],
   imports: [
     CommonModule,
