@@ -12,6 +12,7 @@ export class BotonDeleteComponent {
   constructor(){}
 
   borrar(){
+    alert(this.id);
     this.propagar.emit(this.id);
   }
 }

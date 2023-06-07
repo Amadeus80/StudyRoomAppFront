@@ -27,6 +27,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   myModal:any;
   query:any;
   busquedaFiltro:boolean=false;
+  usuarioIdDelete:any;
 
   editForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -150,9 +151,13 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     }
   }
 
-  borrar(event:Event){
+  delete(id:any){
+    this.usuarioIdDelete = id;
+  }
+
+  onDelete(){
     this.subscription.add(
-      this.usuarioService.borrarUsuario(event).subscribe({
+      this.usuarioService.borrarUsuario(this.usuarioIdDelete).subscribe({
         next: (resp) => {
           Swal.fire({
             icon: 'success',
