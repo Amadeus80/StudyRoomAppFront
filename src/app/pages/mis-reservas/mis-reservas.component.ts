@@ -16,6 +16,7 @@ export class MisReservasComponent implements OnInit, OnDestroy {
   reservas:any;
   ultima!:boolean;
   claveReserva:any;
+  cargando:boolean = false;
 
   constructor(private misReservasService:MisReservasService){}
 
@@ -25,21 +26,23 @@ export class MisReservasComponent implements OnInit, OnDestroy {
   }
 
   obtenerReservas(){
+    this.cargando = true;
     this.subscription.add(
       this.misReservasService.getReservaUsuarios(this.page).subscribe({
         next : (resp:any) => {
           resp.content.forEach((reserva:any) => {
             this.reservas.push(reserva);
           });
-          this.ultima = resp.last
-          console.log()
+          this.ultima = resp.last;
+          this.cargando = false;
         },
         error : (err) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Ha ocurrido un error',
-          })
+            text: 'Ha ocurrido un error. Vuelve a intentarlo más tarde',
+          });
+          this.cargando = false;
         }
       })
     )
@@ -59,6 +62,7 @@ export class MisReservasComponent implements OnInit, OnDestroy {
   }
 
   deleteReserva(){
+    this.cargando = true;
     this.subscription.add(
       this.misReservasService.delete(this.claveReserva).subscribe({
         next : (resp) => {
@@ -71,13 +75,15 @@ export class MisReservasComponent implements OnInit, OnDestroy {
             title: 'Se ha cancelado la reserva con éxito',
             showConfirmButton: true,
           })
+          this.cargando = false;
         },
         error : (err) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: err,
-          })
+          });
+          this.cargando = false;
         }
       })
     );

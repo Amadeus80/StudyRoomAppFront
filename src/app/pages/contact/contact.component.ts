@@ -17,6 +17,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   errorLogin: boolean = false;
   private subscription: Subscription = new Subscription();
   isLogged = false;
+  cargando:boolean=false;
 
   contactForm = this.fb.group({
     nombreUsuario: ['', [Validators.required]],
@@ -40,6 +41,7 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   onContact(): void {
     if (this.contactForm.valid) {
+      this.cargando = true;
       const formValue = this.contactForm.value;
       const authData: contact = {
         nombreUsuario: formValue.nombreUsuario!,
@@ -59,6 +61,7 @@ export class ContactComponent implements OnInit, OnDestroy {
                 title: 'Consulta enviada con éxito!',
                 showConfirmButton: true,
               })
+              this.cargando = false;
             }
           },
           error: (e) => {
@@ -68,6 +71,7 @@ export class ContactComponent implements OnInit, OnDestroy {
               title: 'Oops...',
               text: e,
             })
+            this.cargando = false;
           },
         })
       );

@@ -16,6 +16,7 @@ export class ComunicadosComponent implements OnInit, OnDestroy {
   stompClient: any;
   mensajes:any = [];
   private subscription: Subscription = new Subscription();
+  cargando:boolean=false;
 
   constructor(private comunicadoService:ComunicadosService){}
   
@@ -24,13 +25,18 @@ export class ComunicadosComponent implements OnInit, OnDestroy {
   }
   
   getComunicados(){
+    this.cargando = true;
     this.subscription.add(
       this.comunicadoService.getComunicados().subscribe({
         next:(resp) => {
           this.mensajes = resp;
           this.connect();
+          this.cargando = false;
         },
-        error: (err) => console.log(err)
+        error: (err) => {
+          console.log(err);
+          this.cargando = false;
+        }
       })
     );
   }
@@ -59,16 +65,6 @@ export class ComunicadosComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       this.connect();
     }, 5000);
-  }
-  
-  send(){
-    let mensaje = {
-      "usuario":{
-        "username":localStorage.getItem("username")
-      },
-      "mensaje":"mensaje de prueba"
-    }
-    this.stompClient.send("/app/send-comunicado", {}, JSON.stringify(mensaje));
   }
 
   ngOnDestroy(): void {

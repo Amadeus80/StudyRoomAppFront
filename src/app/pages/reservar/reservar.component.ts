@@ -27,6 +27,7 @@ export class ReservarComponent implements OnInit {
   fechaAsiento:string = "";
   asientosDisponibles: any;
   reservaPk: any;
+  cargando:boolean=false;
 
   formReservar = this.fb.group({
     asiDisp: ['', [Validators.required]]
@@ -42,6 +43,7 @@ export class ReservarComponent implements OnInit {
   }
 
   obtenerReservasDia(){
+    this.cargando = true;
     this.asientos = [];
     this.subscription.add(
       this.reservarService.listadoAsientos(this.fechaHoy).subscribe(
@@ -59,9 +61,11 @@ export class ReservarComponent implements OnInit {
               array = [];
             }
           }
+          this.cargando = false;
         },
         error:(error) => {
-          console.log(error)
+          console.log(error);
+          this.cargando = false;
         }
       })
     )
@@ -83,6 +87,7 @@ export class ReservarComponent implements OnInit {
 
   reservar(){
     if((this.formReservar.valid)){
+      this.cargando = true;
       this.reservaPk = {"reservaPK": {
         "asiento": {
           "id": this.idAsiento
@@ -101,15 +106,16 @@ export class ReservarComponent implements OnInit {
               icon: 'success',
               title: 'Se ha reservado el asiento correctamente!',
               showConfirmButton: true,
-            })
+            });
+            this.cargando = false;
           },
           error:(error) => {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: error,
-            })
-            console.log(error);
+            });
+            this.cargando = false;
           }
         })
       )
@@ -121,14 +127,17 @@ export class ReservarComponent implements OnInit {
     this.idAsiento = id;
     this.nombreAsiento = nombreAsiento;
     this.fechaAsiento = this.fechaHoy;
+    this.cargando = true;
     this.subscription.add(
       this.reservarService.asientosDisponibles(this.fechaAsiento, this.idAsiento).subscribe(
       {
         next:(data) => {
           this.asientosDisponibles = data;
+          this.cargando = false;
         },
         error:(error) => {
-          console.log(error)
+          console.log(error);
+          this.cargando = false;
         }
       })
     )

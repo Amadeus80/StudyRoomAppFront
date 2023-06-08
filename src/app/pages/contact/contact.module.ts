@@ -6,6 +6,7 @@ import { ContactComponent } from './contact.component';
 import { MaterialModule } from 'src/app/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PipesModule } from 'src/app/shared/pipes/pipes.module';
+import { SharedsModule } from 'src/app/shared/components/shareds/shareds.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { PipesModule } from 'src/app/shared/pipes/pipes.module';
     ContactRoutingModule,
     MaterialModule,
     ReactiveFormsModule,
-    PipesModule
+    PipesModule,
+    SharedsModule
   ]
 })
 export class ContactModule { }

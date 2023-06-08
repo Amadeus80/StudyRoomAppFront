@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ReservarRoutingModule } from './reservar-routing.module';
 import { ReservarComponent } from './reservar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedsModule } from 'src/app/shared/components/shareds/shareds.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ReservarRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedsModule
   ]
 })
 export class ReservarModule { }

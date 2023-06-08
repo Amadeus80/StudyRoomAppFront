@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ComunicadosRoutingModule } from './comunicados-routing.module';
 import { ComunicadosComponent } from './comunicados.component';
+import { SharedsModule } from 'src/app/shared/components/shareds/shareds.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { ComunicadosComponent } from './comunicados.component';
   ],
   imports: [
     CommonModule,
-    ComunicadosRoutingModule
+    ComunicadosRoutingModule,
+    SharedsModule
   ]
 })
 export class ComunicadosModule { }

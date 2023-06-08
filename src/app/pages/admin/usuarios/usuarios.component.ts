@@ -64,7 +64,10 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             this.totalElementos = resp.totalElements;
             this.cargando = false;
           },
-          error: (err) => console.log(err),
+          error: (err) => {
+            console.log(err);
+            this.cargando = false;
+          },
         })
       );
     }
@@ -76,7 +79,10 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             this.totalElementos = resp.totalElements;
             this.cargando = false;
           },
-          error: (err) => console.log(err),
+          error: (err) => {
+            console.log(err);
+            this.cargando = false;
+          },
         })
       );
     }
@@ -149,7 +155,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             title: 'Oops...',
             text: err,
           })
-          console.log(err);
+          this.cargando = false;
         }
       });
       this.closebutton2.nativeElement.click();
@@ -178,7 +184,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             title: 'Oops...',
             text: err,
           })
-          console.log(err) 
+          this.cargando = false;
         }
       })
     )
@@ -206,7 +212,10 @@ export class UsuariosComponent implements OnInit, OnDestroy {
           })
           this.cargando = false;
         },
-        error : (err) => console.log(err)
+        error : (err) => {
+          console.log(err);
+          this.cargando = false;
+        }
       })
     );
   }
@@ -260,7 +269,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
               title: 'Oops...',
               text: err,
             })
-            console.log(err)
+            this.cargando = false;
           }
         })
       }
@@ -280,7 +289,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
               title: 'Oops...',
               text: err,
             })
-            console.log(err)
+            this.cargando = false;
           }
         })
       }

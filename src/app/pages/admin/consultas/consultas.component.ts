@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 })
 export class ConsultasComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+  cargando:boolean = false;
 
   consultas:any;
 
@@ -22,15 +23,20 @@ export class ConsultasComponent implements OnInit, OnDestroy {
   }
 
   obtenerConsultas(){
+    this.cargando = true;
     this.subscription.add(
       this.consultaService.getConsultasNoResueltas().subscribe({
-        next : (resp) => this.consultas = resp,
+        next : (resp) => {
+          this.consultas = resp;
+          this.cargando = false;
+        },
         error : (err) => {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: err,
           })
+          this.cargando = false;
         }
       })
     )
@@ -47,6 +53,7 @@ export class ConsultasComponent implements OnInit, OnDestroy {
     }
     else{
       respuesta = {"mensaje" : respuesta.value};
+      this.cargando = true;
       this.subscription.add(
         this.consultaService.resolverConsulta(id, respuesta).subscribe({
           next : (resp) => {
@@ -63,7 +70,7 @@ export class ConsultasComponent implements OnInit, OnDestroy {
               title: 'Oops...',
               text: err,
             })
-            console.log(err);
+            this.cargando = false;
           }
         })
       );

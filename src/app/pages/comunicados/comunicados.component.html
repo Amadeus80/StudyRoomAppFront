@@ -1,4 +1,5 @@
 <div class="container-comunicados container py-5">
+    <app-loader [cargando]="cargando"></app-loader>
     <h1 class="text-center py-3" *ngIf="mensajes.length > 0">Comunicados</h1>
     <ul class="text-center row gx-5" *ngIf="mensajes.length; else sinMensajes">
         <li class="text-center col col-12 col-md-4 mb-5" *ngFor="let mensaje of mensajes">

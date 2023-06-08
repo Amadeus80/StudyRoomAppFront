@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+  cargando:boolean = false;
 
   successRegister:any=null;
 
@@ -49,6 +50,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onLogin(): void {
     if (this.loginForm.valid) {
+      this.cargando = true;
       const formValue = this.loginForm.value;
       const authData: User = {
         email: formValue.email!,
@@ -59,6 +61,7 @@ export class LoginComponent implements OnInit, OnDestroy {
           next: (resp) => {
             if (resp) {
               localStorage.setItem("success", "Has iniciado sesión con éxito!");
+              this.cargando = false;
               this.router.navigate(['']);
             }
           },
@@ -67,7 +70,8 @@ export class LoginComponent implements OnInit, OnDestroy {
               icon: 'error',
               title: 'Oops...',
               text: e,
-            })
+            });
+            this.cargando = false;
           },
         })
       );

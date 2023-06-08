@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 export class RegisterComponent implements OnInit, OnDestroy{
   private subscription: Subscription = new Subscription();
 
+  cargando:boolean=false;
+
   registerForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     username:['', [Validators.required]],
@@ -33,6 +35,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
 
   onRegister():void{
     if (this.registerForm.valid) {
+      this.cargando = true;
       const formValue = this.registerForm.value;
       const registerData:UserCreate = {
         email : formValue.email!,
@@ -43,6 +46,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
         this.authService.register(registerData).subscribe({
           next: (resp) => {
             localStorage.setItem("successRegister", "Te has registrado correctamente!");
+            this.cargando = false;
             this.router.navigate(["/login"])
           },
           error : (e) => {
@@ -51,7 +55,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
               title: 'Oops...',
               text: e,
             })
-            console.log(e);
+            this.cargando = false;
           }
         })
       )

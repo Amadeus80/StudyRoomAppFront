@@ -15,6 +15,7 @@ export class MisDatosComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   @ViewChild('closebutton') closebutton:any;
   @ViewChild('closebutton2') closebutton2:any;
+  cargando:boolean = false;
 
   datos:any;
 
@@ -35,14 +36,16 @@ export class MisDatosComponent implements OnInit, OnDestroy {
   }
 
   obtenerDatos(){
+    this.cargando = true;
     this.subscription.add(
       this.MisDatosService.getDatosUsuarioLogeado().subscribe({
         next:(data) => {
           this.datos = data;
-          console.log(this.datos);
+          this.cargando = false;
         },
         error:(error) => {
           console.log(error)
+          this.cargando = false;
         }
       })
     )
@@ -50,6 +53,7 @@ export class MisDatosComponent implements OnInit, OnDestroy {
 
   onEditUsername(){
     if((this.formEditUsername.valid)){
+      this.cargando = true;
       let userData:any = {
         email: this.datos.email,
         username : this.formEditUsername.value.usernameNuevo,
@@ -65,15 +69,15 @@ export class MisDatosComponent implements OnInit, OnDestroy {
               title: 'Se ha editado correctamente el username!',
               showConfirmButton: true,
             })
-            console.log("Se ha editado correctamente el username!");
+            this.cargando = false;
           },
           error : (err) => {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: err,
-            })
-            console.log(err);
+            });
+            this.cargando = false;
           }
         })
       )
@@ -83,6 +87,7 @@ export class MisDatosComponent implements OnInit, OnDestroy {
 
   onEditPassword(){
     if((this.formEditPassword.valid)){
+      this.cargando = true;
       let userData:any = {
         email: this.datos.email,
         username : this.datos.username,
@@ -96,15 +101,15 @@ export class MisDatosComponent implements OnInit, OnDestroy {
               title: 'Se ha editado correctamente el password!',
               showConfirmButton: true,
             })
-            console.log("Se ha editado correctamente el password");
+            this.cargando = false;
           },
           error : (err) => {
             Swal.fire({
               icon: 'error',
               title: 'Oops...',
               text: err,
-            })
-            console.log(err);
+            });
+            this.cargando = false;
           }
         })
       )
