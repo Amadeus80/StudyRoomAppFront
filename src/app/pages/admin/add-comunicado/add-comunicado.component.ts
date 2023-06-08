@@ -62,7 +62,8 @@ export class AddComunicadoComponent implements OnInit{
         icon: 'success',
         title: 'Se ha enviado el comunicado',
       })
-      document.getElementById("form")?.classList.remove("was-validated");
+      document.getElementById("formulario")?.classList.remove("ng-touched");
+      document.getElementById("formulario")?.classList.remove("was-validated");
       this.comunicadoForm.reset();
     }
   }

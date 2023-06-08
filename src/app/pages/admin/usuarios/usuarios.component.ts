@@ -65,7 +65,11 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             this.cargando = false;
           },
           error: (err) => {
-            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: "Ha ocurrido un error. Inténtalo más tarde",
+            });
             this.cargando = false;
           },
         })
@@ -80,7 +84,11 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             this.cargando = false;
           },
           error: (err) => {
-            console.log(err);
+            Swal.fire({
+              icon: 'error',
+              title: 'Oops...',
+              text: "Ha ocurrido un error. Inténtalo más tarde",
+            });
             this.cargando = false;
           },
         })
@@ -154,7 +162,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
             icon: 'error',
             title: 'Oops...',
             text: err,
-          })
+          });
           this.cargando = false;
         }
       });
@@ -213,7 +221,11 @@ export class UsuariosComponent implements OnInit, OnDestroy {
           this.cargando = false;
         },
         error : (err) => {
-          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Ha ocurrido un error. Inténtalo más tarde",
+          });
           this.cargando = false;
         }
       })

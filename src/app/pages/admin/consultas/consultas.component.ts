@@ -34,8 +34,8 @@ export class ConsultasComponent implements OnInit, OnDestroy {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: err,
-          })
+            text: "Ha ocurrido un error. Inténtalo más tarde",
+          });
           this.cargando = false;
         }
       })

@@ -64,7 +64,11 @@ export class ReservarComponent implements OnInit {
           this.cargando = false;
         },
         error:(error) => {
-          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Ha ocurrido un error. Inténtalo más tarde",
+          });
           this.cargando = false;
         }
       })
@@ -136,7 +140,11 @@ export class ReservarComponent implements OnInit {
           this.cargando = false;
         },
         error:(error) => {
-          console.log(error);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Ha ocurrido un error. Inténtalo más tarde",
+          });
           this.cargando = false;
         }
       })

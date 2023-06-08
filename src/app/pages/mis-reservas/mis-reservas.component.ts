@@ -40,7 +40,7 @@ export class MisReservasComponent implements OnInit, OnDestroy {
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Ha ocurrido un error. Vuelve a intentarlo más tarde',
+            text: 'Ha ocurrido un error. Inténtalo más tarde',
           });
           this.cargando = false;
         }

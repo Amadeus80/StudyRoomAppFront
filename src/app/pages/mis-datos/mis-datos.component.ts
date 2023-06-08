@@ -44,7 +44,11 @@ export class MisDatosComponent implements OnInit, OnDestroy {
           this.cargando = false;
         },
         error:(error) => {
-          console.log(error)
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Ha ocurrido un error. Inténtalo más tarde",
+          });
           this.cargando = false;
         }
       })

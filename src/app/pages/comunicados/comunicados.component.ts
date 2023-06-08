@@ -4,6 +4,7 @@ import * as SockJS from 'sockjs-client';
 import { ComunicadosService } from './comunicados.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-comunicados',
@@ -34,7 +35,11 @@ export class ComunicadosComponent implements OnInit, OnDestroy {
           this.cargando = false;
         },
         error: (err) => {
-          console.log(err);
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: "Ha ocurrido un error. Inténtalo más tarde",
+          });
           this.cargando = false;
         }
       })
