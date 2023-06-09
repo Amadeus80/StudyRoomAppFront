@@ -2,3 +2,17 @@
     padding: 4rem 1rem;
     min-height: calc(100vh - 144px - 4rem);
 }
+
+.silla{
+    font-size: 80px;
+    transition: all 0.2s;
+}
+
+.silla:hover{
+    filter: drop-shadow(0px 0px 10px black);
+    transform: scale(1.2);
+}
+
+/* .table{
+    border: white;
+} */

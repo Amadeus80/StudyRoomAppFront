@@ -5,6 +5,9 @@ import { Subscription } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import Swal from 'sweetalert2';
 
+declare var bootstrap:any;
+declare var $:any;
+
 @Component({
   selector: 'app-reservar',
   templateUrl: './reservar.component.html',
@@ -20,6 +23,7 @@ export class ReservarComponent implements OnInit {
   fechaActual:Date = new Date();
   botonAtrasFechaDisabled:boolean = true;
   fechaHoy:string = `${this.fechaActual.getFullYear()}-${('0'+(this.fechaActual.getMonth()+1)).slice(-2)}-${this.fechaActual.getDate()}`;
+  fecha:string = `${this.fechaActual.getFullYear()}-${('0'+(this.fechaActual.getMonth()+1)).slice(-2)}-${this.fechaActual.getDate()}`;
   asientos:any[] = [];
   datos:any;
   idAsiento:number = 0;
@@ -62,6 +66,7 @@ export class ReservarComponent implements OnInit {
             }
           }
           this.cargando = false;
+          setTimeout(this.iniciarTooltip, 0);
         },
         error:(error) => {
           Swal.fire({
@@ -156,5 +161,13 @@ export class ReservarComponent implements OnInit {
       asiDisp: ['', [Validators.required]]
     });
   }
+
+  iniciarTooltip(){
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+  }
+
 
 }

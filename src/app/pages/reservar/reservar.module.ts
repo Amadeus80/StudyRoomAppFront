@@ -5,6 +5,7 @@ import { ReservarRoutingModule } from './reservar-routing.module';
 import { ReservarComponent } from './reservar.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedsModule } from 'src/app/shared/components/shareds/shareds.module';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { SharedsModule } from 'src/app/shared/components/shareds/shareds.module'
     CommonModule,
     ReservarRoutingModule,
     ReactiveFormsModule,
-    SharedsModule
+    SharedsModule,
+    MatTooltipModule
   ]
 })
 export class ReservarModule { }
