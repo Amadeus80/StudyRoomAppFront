@@ -14,6 +14,7 @@ import { NavAdminComponent } from './nav-admin/nav-admin.component';
 import { ConsultasComponent } from './consultas/consultas.component';
 import { AddComunicadoComponent } from './add-comunicado/add-comunicado.component';
 import { SharedsModule } from 'src/app/shared/components/shareds/shareds.module';
+import { ConsultarReservaComponent } from './consultar-reserva/consultar-reserva.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { SharedsModule } from 'src/app/shared/components/shareds/shareds.module'
     NavAdminComponent,
     ConsultasComponent,
     AddComunicadoComponent,
+    ConsultarReservaComponent,
   ],
   imports: [
     CommonModule,

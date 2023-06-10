@@ -1,0 +1,30 @@
+<div class="container-consultar container">
+    <app-loader [cargando]="cargando"></app-loader>
+    <app-nav-admin></app-nav-admin>
+
+    <h1>Consultar reserva</h1>
+    <form [formGroup]="consultaForm" id="formConsulta" (ngSubmit)="send()">
+        <div class="d-flex gap-3">
+            <div class="form-floating mb-3 w-25">
+                <select id="asiento" formControlName="asiento" class="form-select" placeholder=" ">
+                    <option value="" selected>Selecciona un asiento</option>
+                    <option *ngFor="let asiento of asientos" [value]="asiento.id">{{asiento.asiento}}</option>
+                </select>
+                <label for="form-label">Asiento</label>
+            </div>
+            <div class="form-floating mb-3 w-25">
+                <select id="horario" formControlName="horario" class="form-select" placeholder=" ">
+                    <option value="" selected>Selecciona un horario</option>
+                    <option *ngFor="let horario of horarios" [value]="horario.id">{{horario.hora}}</option>
+                </select>
+                <label for="form-label">Horario</label>
+            </div>
+            <div class="form-floating mb-3 w-25">
+                <input type="date" id="fecha" class="form-control" placeholder=" " formControlName="fecha" required>
+                <label for="fecha">Fecha</label>
+            </div>
+        </div>
+        <button class="btn btn-primary float-end w-25">Comprobar</button>
+    </form>
+</div>
+
