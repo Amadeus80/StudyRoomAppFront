@@ -1,7 +1,10 @@
 <div class="container-comunicados container">
+
     <app-nav-admin></app-nav-admin>
+
     <h1>Realizar comunicado</h1>
-    <form [formGroup]="comunicadoForm" id="formularioComunicado" (ngSubmit)="send()" class="needs-validation" novalidate>
+
+    <form [formGroup]="comunicadoForm" id="formComunicado" (ngSubmit)="send()" class="needs-validation" novalidate>
         <div class="form-floating mb-3">
             <textarea type="text" id="comunicado" class="form-control" style="height: 100px !important;" placeholder=" " formControlName="comunicado" required minlength="8" maxlength="254"></textarea>
             <label for="comunicado">Comunicado</label>
@@ -9,4 +12,5 @@
         </div>
         <button class="btn btn-primary float-end w-25">Enviar</button>
     </form>
+    
 </div>

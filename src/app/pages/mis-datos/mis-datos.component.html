@@ -31,7 +31,7 @@
                 </div>
 
                 <div class="d-grid m-auto mt-3">
-                    <button class="btn btn-primary w-100 m-auto" id="cambiarUsername" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditUsername">Cambiar Username</button>
+                    <button class="btn btn-primary w-100 m-auto" id="cambiarUsername" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditUsername" (click)="resetearForm('editUsername')">Cambiar Username</button>
                 </div>
 
             </div>
@@ -54,7 +54,7 @@
 
             <div class="col col-12 col-md-6">
                 <div class="d-grid m-auto mt-3">
-                    <button class="btn btn-primary w-100 m-auto" id="cambiarPassword" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditPassword">Cambiar Password</button>
+                    <button class="btn btn-primary w-100 m-auto" id="cambiarPassword" type="submit" data-bs-toggle="modal" data-bs-target="#modalEditPassword" (click)="resetearForm('editPassword')">Cambiar Password</button>
                 </div>
             </div>
 

@@ -58,13 +58,15 @@ export class AddComunicadoComponent implements OnInit{
         "mensaje":this.comunicadoForm.value.comunicado
       }
       this.stompClient.send("/app/send-comunicado", {}, JSON.stringify(mensaje));
-      document.getElementById("formularioComunicado")?.classList.remove("was-validated");
-      document.getElementById("formularioComunicado")?.classList.remove("ng-touched");
-      this.comunicadoForm.reset();
       Swal.fire({
         icon: 'success',
         title: 'Se ha enviado el comunicado',
       })
+      this.comunicadoForm.reset();
+      setTimeout(function(){
+        document.getElementById("formComunicado")?.classList.remove("ng-touched");
+        document.getElementById("formComunicado")?.classList.remove("was-validated");
+      }, 0);
     }
   }
 

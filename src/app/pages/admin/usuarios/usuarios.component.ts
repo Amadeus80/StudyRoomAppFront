@@ -315,6 +315,12 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     document.getElementById("addForm")?.classList.remove("was-validated");
   }
 
+  resetearFormEdit(){
+    this.editForm.reset();
+    document.getElementById("editForm")?.classList.remove("ng-touched");
+    document.getElementById("editForm")?.classList.remove("was-validated");
+  }
+
   validaciones(): void {
     // Ejemplo de JavaScript inicial para deshabilitar el envío de formularios si hay campos no válidos
     (function () {

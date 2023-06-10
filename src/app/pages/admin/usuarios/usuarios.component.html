@@ -40,7 +40,7 @@
                         <!-- <app-boton-delete [id]="usuario.id" (propagar)="borrar($event)"></app-boton-delete> -->
                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDelete" (click)="delete(usuario.id)"><i class="bi bi-trash-fill"></i></button>
                         <app-boton-edit [id]="usuario.id" (propagar)="editar($event)" data-bs-toggle="modal"
-                            data-bs-target="#modalEdit"></app-boton-edit>
+                            data-bs-target="#modalEdit" (click)="resetearFormEdit()"></app-boton-edit>
                     </div>
                 </td>
             </tr>

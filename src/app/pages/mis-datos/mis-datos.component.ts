@@ -126,6 +126,16 @@ export class MisDatosComponent implements OnInit, OnDestroy {
     }
   }
 
+  resetearForm(idForm:any){
+    if (idForm=="editPassword") {
+      this.formEditPassword.reset();
+    } else if (idForm=="editUsername") {
+      this.formEditUsername.reset();
+    }
+    document.getElementById(idForm)?.classList.remove("ng-touched");
+    document.getElementById(idForm)?.classList.remove("was-validated");
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
