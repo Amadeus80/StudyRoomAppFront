@@ -34,7 +34,7 @@
 
                         <!-- Input Número de Teléfono -->
                         <div class="form-floating mb-3">
-                            <input class="form-control" formControlName="telefono" id="phone" type="tel" placeholder=" " minlength="9" maxlength="9" required />
+                            <input class="form-control" formControlName="telefono" id="phone" type="number" placeholder=" " min="600000000" max="799999999" required />
                             <label for="phone">Número de teléfono</label>
                             <div class="invalid-feedback">Debes completar el número de teléfono</div>
                         </div>

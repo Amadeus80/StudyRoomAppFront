@@ -18,6 +18,7 @@ export class MisDatosComponent implements OnInit, OnDestroy {
   cargando:boolean = false;
 
   datos:any;
+  roles:any = [];
 
   formEditUsername = this.fb.group({
     usernameNuevo: ['', [Validators.required]]
@@ -42,6 +43,10 @@ export class MisDatosComponent implements OnInit, OnDestroy {
         next:(data) => {
           this.datos = data;
           this.cargando = false;
+          for (const rol of this.datos.roles) {
+            let separados = rol.rol.split("_");
+            this.roles.push(separados[1]);
+          }
         },
         error:(error) => {
           Swal.fire({

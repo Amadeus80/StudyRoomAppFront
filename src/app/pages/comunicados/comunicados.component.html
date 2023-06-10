@@ -1,6 +1,13 @@
 <div class="container-comunicados container py-5">
+    
     <app-loader [cargando]="cargando"></app-loader>
-    <h1 class="text-center py-3" *ngIf="mensajes.length > 0">Comunicados</h1>
+
+    <div class="text-center m-auto w-50">
+        <h1 class="mt-0">COMUNICADOS</h1>
+        <hr class="divider" />
+        <p class="text-muted mb-5">Aqui iremos publicando los comunicados relacionados con nuestra aplicación!</p>
+    </div>
+
     <ul class="text-center row gx-5" *ngIf="mensajes.length; else sinMensajes">
         <li class="text-center col col-12 col-md-4 mb-5" *ngFor="let mensaje of mensajes">
             <a class="text-white">
@@ -10,8 +17,13 @@
             </a>
         </li>
     </ul>
+
 </div>
 
 <ng-template #sinMensajes>
-    <h1 class="text-center py-3">Sin comunicados</h1>
+    <div class="text-center">
+        <h1 class="text-center">No se ha publicado ningún comunicado</h1>
+        <hr class="divider mb-5" />
+        <img class="margin: auto; w-50" src = "assets/img/comunicados/sinComunicados.svg" alt="Sin reservas"/>
+    </div>
 </ng-template>
