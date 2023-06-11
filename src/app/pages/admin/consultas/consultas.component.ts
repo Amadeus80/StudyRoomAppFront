@@ -46,8 +46,8 @@ export class ConsultasComponent implements OnInit, OnDestroy {
     let respuesta:any = document.getElementById(id);
     if(respuesta.value.length <= 5){
       Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
+        icon: 'warning',
+        title: 'Responde correctamente',
         text: "Indica más de 5 caracteres en la respuesta",
       })
     }
