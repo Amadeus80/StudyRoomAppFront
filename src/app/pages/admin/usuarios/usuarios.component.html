@@ -1,6 +1,9 @@
 <div class="container-usuarios container">
+
     <app-loader [cargando]="cargando"></app-loader>
+
     <app-nav-admin></app-nav-admin>
+
     <div class="d-flex justify-content-between">
         <div class="w-50 d-flex gap-2 align-items-center">
             <div class="form-floating w-75">
@@ -13,7 +16,8 @@
         <button class="align-self-start btn btn-success" data-bs-toggle="modal" data-bs-target="#modalAdd"
             (click)="nuevo()"><i class="bi bi-plus-circle-fill text-dark fs-5 me-2"></i> Nuevo</button>
     </div>
-    <table class="table">
+
+    <table class="table-responsive w-100">
         <thead>
             <tr>
                 <th scope="col">ID</th>
@@ -35,9 +39,8 @@
                         </span>
                     </div>
                 </td>
-                <td>
+                <td class="py-2">
                     <div class="d-flex gap-2">
-                        <!-- <app-boton-delete [id]="usuario.id" (propagar)="borrar($event)"></app-boton-delete> -->
                         <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDelete" (click)="delete(usuario.id)"><i class="bi bi-trash-fill"></i></button>
                         <app-boton-edit [id]="usuario.id" (propagar)="editar($event)" data-bs-toggle="modal"
                             data-bs-target="#modalEdit" (click)="resetearFormEdit()"></app-boton-edit>
@@ -46,6 +49,7 @@
             </tr>
         </tbody>
     </table>
+
     <mat-paginator #paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" [length]="totalElementos"
         (page)="nextPage($event)"> </mat-paginator>
 </div>
