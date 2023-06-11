@@ -22,11 +22,15 @@ export class ComunicadosComponent implements OnInit, OnDestroy {
   cargando:boolean=false;
   idComunicado:any;
   isAdmin:boolean=false;
+  isLogged:boolean = false;
 
   constructor(private comunicadoService:ComunicadosService, private authService:AuthService){}
   
   ngOnInit(): void {
     this.getComunicados();
+    this.subscription.add(
+      this.authService.isLogged.subscribe((resp) => (this.isLogged = resp))
+    );
     this.subscription.add(
       this.authService.isAdmin.subscribe((resp) => (this.isAdmin = resp))
     );
