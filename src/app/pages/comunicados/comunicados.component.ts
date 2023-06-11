@@ -1,10 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import { ComunicadosService } from './comunicados.service';
 import { Subscription } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import Swal from 'sweetalert2';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-comunicados',
@@ -12,17 +13,23 @@ import Swal from 'sweetalert2';
   styleUrls: ['./comunicados.component.css']
 })
 export class ComunicadosComponent implements OnInit, OnDestroy {
+  @ViewChild('closebutton') closebutton:any;
   webSocketEndPoint: string = `${environment.API_URL}/comunicados`;
   topic: string = "/topic/comunicados";
   stompClient: any;
   mensajes:any = [];
   private subscription: Subscription = new Subscription();
   cargando:boolean=false;
+  idComunicado:any;
+  isAdmin:boolean=false;
 
-  constructor(private comunicadoService:ComunicadosService){}
+  constructor(private comunicadoService:ComunicadosService, private authService:AuthService){}
   
   ngOnInit(): void {
     this.getComunicados();
+    this.subscription.add(
+      this.authService.isAdmin.subscribe((resp) => (this.isAdmin = resp))
+    );
   }
   
   getComunicados(){
@@ -54,8 +61,22 @@ export class ComunicadosComponent implements OnInit, OnDestroy {
       _this.stompClient.subscribe(_this.topic, function (data:any) {
         _this.mensajes.push(JSON.parse(data.body))
       });
+
+      _this.stompClient.subscribe("/topic/comunicados-delete", function (data:any) {
+        let datos = JSON.parse(data.body);
+        _this.mensajes = _this.mensajes.filter((mensaje:any) => mensaje.id != datos.id);
+      });
       //_this.stompClient.reconnect_delay = 2000;
     }, this.errorCallBack);
+  }
+
+  delete(id:any){
+    this.idComunicado = id;
+  }
+
+  deleteComunicado(){
+    this.stompClient.send(`/app/delete-comunicado/${this.idComunicado}`, {});
+    this.closebutton.nativeElement.click();
   }
   
   _disconnect() {
