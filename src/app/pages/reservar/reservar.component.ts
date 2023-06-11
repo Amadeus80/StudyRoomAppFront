@@ -22,6 +22,7 @@ export class ReservarComponent implements OnInit {
 
   fechaActual:Date = new Date();
   botonAtrasFechaDisabled:boolean = true;
+  botonAdelanteFechaDisabled:boolean = true;
   fechaHoy:string = `${this.fechaActual.getFullYear()}-${('0'+(this.fechaActual.getMonth()+1)).slice(-2)}-${this.fechaActual.getDate()}`;
   fecha:string = `${this.fechaActual.getFullYear()}-${('0'+(this.fechaActual.getMonth()+1)).slice(-2)}-${this.fechaActual.getDate()}`;
   asientos:any[] = [];
@@ -47,6 +48,8 @@ export class ReservarComponent implements OnInit {
   }
 
   obtenerReservasDia(){
+    this.botonAtrasFechaDisabled = true;
+    this.botonAdelanteFechaDisabled = true;
     this.cargando = true;
     this.asientos = [];
     this.subscription.add(
@@ -66,6 +69,8 @@ export class ReservarComponent implements OnInit {
             }
           }
           this.cargando = false;
+          this.botonAtrasFechaDisabled = (this.fechaActual > new Date())? false : true;
+          this.botonAdelanteFechaDisabled = false;
           setTimeout(this.iniciarTooltip, 0);
         },
         error:(error) => {
@@ -75,6 +80,8 @@ export class ReservarComponent implements OnInit {
             text: "Ha ocurrido un error. Inténtalo más tarde",
           });
           this.cargando = false;
+          this.botonAtrasFechaDisabled = (this.fechaActual > new Date())? false : true;
+          this.botonAdelanteFechaDisabled = false;
         }
       })
     )
