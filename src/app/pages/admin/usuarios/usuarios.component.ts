@@ -236,17 +236,17 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.changePassword = !this.changePassword;
     if(this.changePassword){
       this.editForm = this.fb.group({
-        email: [this.usuario.email, [Validators.required, Validators.email]],
-        username: [this.usuario.username, [Validators.required]],
-        roles : [this.usuario.roles.map((rol:any) => rol.id), [Validators.required]],
+        email: [this.editForm.value.email!, [Validators.required, Validators.email]],
+        username: [this.editForm.value.username!, [Validators.required]],
+        roles : [this.editForm.value.roles!, [Validators.required]],
         password : ['', [Validators.required, Validators.minLength(8)]]
       })
     }
     else{
       this.editForm = this.fb.group({
-        email: [this.usuario.email, [Validators.required, Validators.email]],
-        username: [this.usuario.username, [Validators.required]],
-        roles : [this.usuario.roles.map((rol:any) => rol.id), [Validators.required]],
+        email: [this.editForm.value.email!, [Validators.required, Validators.email]],
+        username: [this.editForm.value.username!, [Validators.required]],
+        roles : [this.editForm.value.roles!, [Validators.required]],
         password : ['aaaaaaaa', [Validators.required, Validators.minLength(8)]]
       })
     }
