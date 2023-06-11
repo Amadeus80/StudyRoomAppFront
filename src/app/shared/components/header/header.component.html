@@ -28,9 +28,6 @@
                 <li class="nav-item mt-1"><a class="nav-link text-truncate" [routerLink]="'/contact'" routerLinkActive="active">Contacto</a></li>
                 <li class="nav-item mt-1"><a class="nav-link text-truncate" [routerLink]="'/usoPagina'" routerLinkActive="active">Uso de la Página</a></li>
                 <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/reservar'" routerLinkActive="active">Reservar</a></li>
-                <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/misReservas'" routerLinkActive="active">Mis Reservas</a></li>
-                <li class="nav-item mt-1" *ngIf="isLogged"><a class="nav-link text-truncate" [routerLink]="'/misDatos'" routerLinkActive="active">Mis Datos</a></li>
-                <li class="nav-item mt-1" *ngIf="isLogged && isAdmin"><a class="nav-link text-truncate" [routerLink]="'/admin'" routerLinkActive="active">Admin</a></li>
                 <li class="nav-item"><a *ngIf="!isLogged; else viewLogout" class="btn btn-primary px-3 py-1 w-100 text-truncate" [routerLink]="'/login'" routerLinkActive="active">Login</a></li>
                 <li class="nav-item"><a *ngIf="!isLogged" class="btn btn-primary px-3 py-1 w-100 ms-0 ms-lg-2 text-truncate" [routerLink]="'/register'" routerLinkActive="active">Registrarse</a></li>
             </ul>
@@ -39,13 +36,15 @@
 </nav>
 
 <ng-template #viewLogout>
-    <!-- <a class="nav-link" (click)="onLogout()" href="">Cerrar sesión</a> -->
     <div class="dropdown">
         <button class="btn btn-primary btn-sm dropdown-toggle text-uppercase" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{authService.username}}
         </button>
         <ul class="dropdown-menu text-center">
-            <li class="px-1"><a class="dropdown btn btn-primary btn-sm w-100" (click)="onLogout()">Cerrar sesión</a></li>
+            <li class="px-1"><a class="dropdown btn btn-primary btn-sm w-100 mb-2" [routerLink]="'/misReservas'" routerLinkActive="active"><i class="bi bi-calendar3"></i> Mis Reservas</a></li>
+            <li class="px-1"><a class="dropdown btn btn-primary btn-sm w-100 mb-2" [routerLink]="'/misDatos'" routerLinkActive="active"><i class="bi bi-person-badge"></i> Mis Datos</a></li>
+            <li class="px-1" *ngIf="isAdmin"><a class="dropdown btn btn-primary btn-sm w-100 mb-2" [routerLink]="'/admin'" routerLinkActive="active"><i class="bi bi-person-fill-gear"></i> Admin</a></li>
+            <li class="px-1"><a class="dropdown btn btn-primary btn-sm w-100" (click)="onLogout()"><i class="bi bi-power"></i> Cerrar sesión</a></li>
         </ul>
     </div>
 </ng-template>
