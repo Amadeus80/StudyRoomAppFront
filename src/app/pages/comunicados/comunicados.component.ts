@@ -13,6 +13,8 @@ import { AuthService } from '../auth/auth.service';
   styleUrls: ['./comunicados.component.css']
 })
 export class ComunicadosComponent implements OnInit, OnDestroy {
+
+  //Variables
   @ViewChild('closebutton') closebutton:any;
   webSocketEndPoint: string = `${environment.API_URL}/comunicados`;
   topic: string = "/topic/comunicados";
@@ -36,6 +38,7 @@ export class ComunicadosComponent implements OnInit, OnDestroy {
     );
   }
   
+  //Obtener todos los comunicados
   getComunicados(){
     this.cargando = true;
     this.subscription.add(
@@ -70,10 +73,10 @@ export class ComunicadosComponent implements OnInit, OnDestroy {
         let datos = JSON.parse(data.body);
         _this.mensajes = _this.mensajes.filter((mensaje:any) => mensaje.id != datos.id);
       });
-      //_this.stompClient.reconnect_delay = 2000;
     }, this.errorCallBack);
   }
 
+  //Borrar los comunicados
   delete(id:any){
     this.idComunicado = id;
   }

@@ -11,6 +11,7 @@ export class ConsultarReservaService {
 
   constructor(private http:HttpClient) { }
 
+  //Llamadas a la Api
   consultar(claveReserva:any){
     return this.http.post(`${URL}find`, claveReserva);
   }

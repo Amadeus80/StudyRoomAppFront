@@ -25,7 +25,6 @@ a:hover{
 }
 
 .nav__enlaces > li:hover{
-    /* border-bottom: 1px solid black; */
     filter: drop-shadow(0px 0px 10px black);
     transform: scale(1.2);
 }

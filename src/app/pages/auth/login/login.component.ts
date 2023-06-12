@@ -13,9 +13,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
+
+  //Variables
   private subscription: Subscription = new Subscription();
   cargando:boolean = false;
-
   successRegister:any=null;
 
   loginForm = this.fb.group({
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  //Iniciar Sesión
   onLogin(): void {
     if (this.loginForm.valid) {
       this.cargando = true;

@@ -1,3 +1,4 @@
+<!-- Foro de Comunicados -->
 <div class="container-comunicados container py-5">
 
     <app-loader [cargando]="cargando"></app-loader>
@@ -20,6 +21,7 @@
     </ul>
 </div>
 
+<!-- Modal para aceptar el borrado del comunicado -->
 <div class="modal fade" id="modalDelete" tabindex="-1" aria-labelledby="modalDelete" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -35,6 +37,7 @@
     </div>
 </div>
 
+<!-- Template de cuando no hay comunicados -->
 <ng-template #sinMensajes>
     <div class="text-center">
         <h1 class="text-center">No se ha publicado ningún comunicado</h1>

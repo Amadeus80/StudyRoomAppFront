@@ -1,3 +1,4 @@
+<!-- Apartado donde encontrar Mis Reservas -->
 <div class="container-reservas container py-5">
     <app-loader [cargando]="cargando"></app-loader>
     <div class="text-center m-auto w-50">
@@ -31,10 +32,12 @@
         </div>
     </div>
 
+    <!-- Botón de cargar más reservas -->
     <div class="text-center mt-3" *ngIf="reservas?.length > 0">
         <button (click)="cargarMas()" class="btn btn-primary btn-lg" *ngIf="!ultima">Cargar más</button>
     </div>
 
+    <!-- Template de cuando no hay mas reservas -->
     <ng-template #sinReservas>
         <div class="text-center">
             <h1 class="text-center">No has realizado ninguna reserva</h1>
@@ -43,6 +46,7 @@
         </div>
     </ng-template>
 
+    <!-- Modal para confirmar la cancelación de la reserva -->
     <div class="modal fade" id="confirmarCancelar" tabindex="-1" aria-labelledby="confirmarCancelar" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">

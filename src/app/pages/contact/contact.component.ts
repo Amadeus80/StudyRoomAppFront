@@ -14,6 +14,7 @@ import Swal from 'sweetalert2';
 })
 export class ContactComponent implements OnInit, OnDestroy {
 
+  //Variables
   errorLogin: boolean = false;
   private subscription: Subscription = new Subscription();
   isLogged = false;
@@ -39,6 +40,7 @@ export class ContactComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  //Contactar mediante consultas
   onContact(): void {
     if (this.contactForm.valid) {
       this.cargando = true;

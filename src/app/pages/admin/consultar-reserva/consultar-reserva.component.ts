@@ -10,6 +10,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./consultar-reserva.component.css'],
 })
 export class ConsultarReservaComponent implements OnInit, OnDestroy {
+
+  //Variables
   private subscription: Subscription = new Subscription();
   cargando: boolean = false;
   reservaPk: any;
@@ -32,6 +34,7 @@ export class ConsultarReservaComponent implements OnInit, OnDestroy {
     this.obtenerHorarios();
   }
 
+  //Obtener todos los asientos y horarios
   obtenerAsientos(){
     this.consultarReservaService.obtenerAsientos().subscribe({
       next : (resp) => {
@@ -69,6 +72,7 @@ export class ConsultarReservaComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  //Consultar el asiento seleccionado
   send() {
     if (this.consultaForm.valid) {
       this.cargando = true;

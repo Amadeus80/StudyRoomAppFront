@@ -14,6 +14,8 @@ declare var $:any;
   styleUrls: ['./reservar.component.css']
 })
 export class ReservarComponent implements OnInit {
+
+  //Variables
   private subscription: Subscription = new Subscription();
   @ViewChild('closebutton') closebutton:any;
   pipe = new DatePipe('en-US');
@@ -47,6 +49,7 @@ export class ReservarComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
+  //Funciones para reservas asientos
   obtenerReservasDia(){
     this.botonAtrasFechaDisabled = true;
     this.botonAdelanteFechaDisabled = true;

@@ -14,41 +14,37 @@ const helper = new JwtHelperService();
   providedIn: 'root'
 })
 export class AuthService {
+
+  //Variables
   private loggedIn = new BehaviorSubject<boolean>(false);
   private admin = new BehaviorSubject<boolean>(false);
   private expired = new BehaviorSubject<boolean>(true);
 
   constructor(private http: HttpClient, private router:Router) { 
-    /* console.log(this.tokenIsExpired(this.token));
-      if(this.tokenIsExpired(this.token)){
-        this.logout();
-      } */
+    this.comprobarAdmin() ? this.admin.next(true) : this.admin.next(false);
 
-      this.comprobarAdmin() ? this.admin.next(true) : this.admin.next(false);
-
-      if(!allowUrl.find(url => url == this.router.url)){
-        this.checkToken();
+    if(!allowUrl.find(url => url == this.router.url)){
+      this.checkToken();
+    }
+    else{
+      if(localStorage.getItem("token") && localStorage.getItem("authorities") && localStorage.getItem("username")){
+        this.loggedIn.next(true);
       }
       else{
-        if(localStorage.getItem("token") && localStorage.getItem("authorities") && localStorage.getItem("username")){
-          this.loggedIn.next(true);
-        }
-        else{
-          localStorage.removeItem("token");
-          localStorage.removeItem("authorities");
-          localStorage.removeItem("username");
-        }
+        localStorage.removeItem("token");
+        localStorage.removeItem("authorities");
+        localStorage.removeItem("username");
       }
+    }
   }
 
+  //Diferentes llamadas a la Api
   lista(){
     return this.http.get(`${environment.API_URL}/api/user/lista`)
     .pipe(
       map(resp => resp)
     );
   }
-
-  
 
   get isLogged():Observable<boolean>{
     return this.loggedIn.asObservable();
@@ -153,11 +149,4 @@ export class AuthService {
     this.comprobarAdmin() ? this.admin.next(true) : this.admin.next(false);
   }
 
-  /* private handlerError(error:any):Observable<never>{
-    let errorMessage = "Ha ocurrido un error";
-    if(error){
-      errorMessage = error.error.message;
-    }
-    return throwError(() => errorMessage);
-  } */
 }

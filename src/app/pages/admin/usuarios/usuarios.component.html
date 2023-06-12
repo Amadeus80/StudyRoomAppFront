@@ -1,9 +1,11 @@
+<!-- Menú para administrar todos los usuarios -->
 <div class="container-usuarios container">
 
     <app-loader [cargando]="cargando"></app-loader>
 
     <app-nav-admin></app-nav-admin>
 
+    <!-- Formulario para filtrar los usuarios -->
     <div class="d-flex justify-content-between">
         <div class="w-50 d-flex gap-2 align-items-center">
             <div class="form-floating w-75">
@@ -17,6 +19,7 @@
             (click)="nuevo()"><i class="bi bi-plus-circle-fill text-dark fs-5 me-2"></i> Nuevo</button>
     </div>
 
+    <!-- Tabla con todos los usuarios -->
     <table class="table-responsive w-100 mt-4">
         <thead>
             <tr>
@@ -54,7 +57,7 @@
         (page)="nextPage($event)"> </mat-paginator>
 </div>
 
-<!-- Modal delete-->
+<!-- Modal para borrar un usuario -->
 <div class="modal fade" id="modalDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -72,7 +75,7 @@
     </div>
 </div>
 
-<!-- MODAL EDIT -->
+<!-- Modal para editar un usuario -->
 <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalAdd" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -125,7 +128,7 @@
     </div>
 </div>
 
-<!-- MODAL ADD -->
+<!-- Modal para añadir un usuario -->
 <div class="modal fade" id="modalAdd" tabindex="-1" aria-labelledby="modalAdd" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

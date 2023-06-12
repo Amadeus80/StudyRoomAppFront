@@ -9,9 +9,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./consultas.component.css']
 })
 export class ConsultasComponent implements OnInit, OnDestroy {
+
+  //Variables
   private subscription: Subscription = new Subscription();
   cargando:boolean = false;
-
   consultas:any;
 
   constructor(private consultaService: ConsultaService){
@@ -22,6 +23,7 @@ export class ConsultasComponent implements OnInit, OnDestroy {
     this.obtenerConsultas();
   }
 
+  //Recoger todas las consultas
   obtenerConsultas(){
     this.cargando = true;
     this.subscription.add(
@@ -42,6 +44,7 @@ export class ConsultasComponent implements OnInit, OnDestroy {
     )
   }
 
+  //Responder a las consultas
   responder(id:string){
     let respuesta:any = document.getElementById(id);
     if(respuesta.value.length <= 5){

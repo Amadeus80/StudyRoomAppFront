@@ -11,6 +11,7 @@ export class BotonEditComponent {
 
   constructor(){}
 
+  //Función que propaga el editar de usuario
   editar(){
     this.propagar.emit(this.id);
   }

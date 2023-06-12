@@ -11,6 +11,7 @@ export class ReservarService {
 
   constructor(private http:HttpClient) { }
 
+  //Llamadas a la Api
   listadoAsientos(fecha:string){
     return this.http.get(`${URL}${fecha}`);
   }

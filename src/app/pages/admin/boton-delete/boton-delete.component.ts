@@ -11,8 +11,8 @@ export class BotonDeleteComponent {
 
   constructor(){}
 
+  //Propaga el borrado de usuario
   borrar(){
-    alert(this.id);
     this.propagar.emit(this.id);
   }
 }

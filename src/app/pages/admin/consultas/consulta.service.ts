@@ -11,6 +11,7 @@ export class ConsultaService {
 
   constructor(private http:HttpClient) { }
 
+  //Llamadas a la Api
   getConsultasNoResueltas(){
     return this.http.get(`${URL}lista-no-resueltas`);
   }

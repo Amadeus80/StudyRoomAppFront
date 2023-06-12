@@ -9,9 +9,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./mis-reservas.component.css']
 })
 export class MisReservasComponent implements OnInit, OnDestroy {
+
+  //Variables
   private subscription: Subscription = new Subscription();
   @ViewChild('closebutton') closebutton:any;
-
   page:any = 0;
   reservas:any;
   ultima!:boolean;
@@ -25,6 +26,7 @@ export class MisReservasComponent implements OnInit, OnDestroy {
     this.obtenerReservas();
   }
 
+  //Funciones para ver y manipular las reservas
   obtenerReservas(){
     this.cargando = true;
     this.subscription.add(

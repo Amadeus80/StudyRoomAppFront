@@ -11,6 +11,8 @@ export class MisDatosService {
 
   constructor(private http:HttpClient) { }
 
+  //Llamadas a la Api
+
   getDatosUsuarioLogeado(){
     return this.http.get(`${URL}find-user-logeado`);
   }

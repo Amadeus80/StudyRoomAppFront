@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./add-comunicado.component.css']
 })
 export class AddComunicadoComponent implements OnInit{
+
+  //Variables
   webSocketEndPoint: string = `${environment.API_URL}/comunicados`;
   topic: string = "/topic/comunicados";
   stompClient: any;
@@ -26,12 +28,12 @@ export class AddComunicadoComponent implements OnInit{
     this.connect();
   }
   
+  //Conexión y desconexión con el web socket 
   connect(){
     let ws = new SockJS(this.webSocketEndPoint);
     this.stompClient = Stomp.over(ws);
     const _this = this;
     _this.stompClient.connect({}, function (frame:any) {
-      //_this.stompClient.reconnect_delay = 2000;
     }, this.errorCallBack);
   }
   
@@ -42,6 +44,7 @@ export class AddComunicadoComponent implements OnInit{
     console.log("Disconnected");
   }
   
+  //Error en el servidor
   errorCallBack(error:any) {
     console.log("errorCallBack -> " + error)
     setTimeout(() => {
@@ -49,6 +52,7 @@ export class AddComunicadoComponent implements OnInit{
     }, 5000);
   }
   
+  //Enviar el comunicado
   send(){
     if(this.comunicadoForm.valid){
       let mensaje = {

@@ -11,6 +11,7 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
+  //Llamadas a la Api
   listaUsuarios(request:any){
     return this.http.get(`${URL}lista?page=${request['page']}&size=${request['size']}`, request);
   }

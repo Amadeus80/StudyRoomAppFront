@@ -13,6 +13,8 @@ declare var $: any;
   styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent implements OnInit, OnDestroy {
+
+  //Variables
   private subscription: Subscription = new Subscription();
   @ViewChild('closebutton') closebutton:any;
   @ViewChild('closebutton2') closebutton2:any;
@@ -54,6 +56,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     );
   }
 
+  //Obtener todos los usuarios
   private obtenerUsuarios(request:any){
     this.cargando = true;
     if(this.busquedaFiltro){
@@ -96,6 +99,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     }
   }
 
+  //Cambiar de página, filtrar usuario y limpiar el filtrado
   nextPage(event: PageEvent){
     this.request['page'] = event.pageIndex.toString();
     this.request['size'] = event.pageSize.toString();
@@ -123,6 +127,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.obtenerUsuarios(this.request);
   }
 
+  //Añadir usuario
   nuevo(){
     this.usuario = {};
     this.editForm = this.fb.group({
@@ -170,6 +175,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     }
   }
 
+  //Eliminar usuario
   delete(id:any){
     this.usuarioIdDelete = id;
   }
@@ -198,6 +204,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     )
   }
 
+  //Editar usuarios y mostrar el cambiar contraseña
   editar(event:Event){
     this.cargando = true;
     this.usuario = null;
@@ -309,6 +316,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     }
   }
 
+  //Resetear formularios
   resetearFormAdd(){
     this.editForm.reset();
     document.getElementById("addForm")?.classList.remove("ng-touched");

@@ -12,6 +12,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./mis-datos.component.css']
 })
 export class MisDatosComponent implements OnInit, OnDestroy {
+
+  //Variables
   private subscription: Subscription = new Subscription();
   @ViewChild('closebutton') closebutton:any;
   @ViewChild('closebutton2') closebutton2:any;
@@ -60,6 +62,7 @@ export class MisDatosComponent implements OnInit, OnDestroy {
     )
   }
 
+  //Editar username y password
   onEditUsername(){
     if((this.formEditUsername.valid)){
       this.cargando = true;

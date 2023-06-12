@@ -13,8 +13,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit, OnDestroy{
-  private subscription: Subscription = new Subscription();
 
+  //Variables
+  private subscription: Subscription = new Subscription();
   cargando:boolean=false;
 
   registerForm = this.fb.group({
@@ -33,6 +34,7 @@ export class RegisterComponent implements OnInit, OnDestroy{
     this.subscription.unsubscribe();
   }
 
+  //Registrarse
   onRegister():void{
     if (this.registerForm.valid) {
       this.cargando = true;
